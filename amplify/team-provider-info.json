@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-codesphere-dev-164725-authRole",
+      "UnauthRoleArn": "arn:aws:iam::610848892693:role/amplify-codesphere-dev-164725-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::610848892693:role/amplify-codesphere-dev-164725-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-codesphere-dev-164725-deployment",
+      "UnauthRoleName": "amplify-codesphere-dev-164725-unauthRole",
+      "StackName": "amplify-codesphere-dev-164725",
+      "StackId": "arn:aws:cloudformation:us-east-2:610848892693:stack/amplify-codesphere-dev-164725/86b757d0-2002-11ee-ae24-068ebc15befb",
+      "AmplifyAppId": "d25299mlbwcdn8"
+    },
+    "categories": {
+      "api": {
+        "codesphere": {}
+      },
+      "auth": {
+        "codesphere7eb6a5c7": {}
+      }
+    }
+  }
+}
