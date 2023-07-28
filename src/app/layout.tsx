@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
@@ -7,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import AppContext from "@/appContext";
 import AppStore from "@/stores/app";
 import AppApi from "@/appApi";
+import { Providers } from "@/providers";
+import { useRouter } from "next/navigation";
 
 const fira_code = Fira_Code({ subsets: ["latin"] });
 
@@ -24,13 +27,17 @@ export default function RootLayout({
   const store = new AppStore();
   const api = new AppApi(store);
 
+  if (!store.auth.currentUser) {
+    store.auth.logout();
+  }
+
   return (
     <html lang="en">
       <body className={fira_code.className}>
-        <Navbar />
-        <AppContext.Provider value={{ store, api }}>
+        <Providers>
+          <Navbar />
           {children}
-        </AppContext.Provider>
+        </Providers>
         <ToastContainer
           position="top-right"
           autoClose={5000}

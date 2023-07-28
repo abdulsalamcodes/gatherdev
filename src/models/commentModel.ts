@@ -1,27 +1,23 @@
 import { computed, makeObservable } from "mobx";
 import AppStore from "../stores/app";
-import IComment from "../types/comment";
+import { IComment } from "../types/comment";
+import { IPost } from "@/types/post";
 
-export default class Comment implements IComment {
-  id: number;
-  postId: number;
-  name: string;
-  email: string;
-  body: string;
+export default class Comment {
+  id: string;
+  post?: IPost | null;
+  author: string;
+  content: string;
+  postCommentsId?: string | null;
 
   constructor(private store: AppStore, comment: IComment) {
     this.id = comment.id;
-    this.postId = comment.postId;
-    this.name = comment.name;
-    this.email = comment.email;
-    this.body = comment.body;
+    this.post = comment.post;
+    this.author = comment.author;
+    this.content = comment.content;
 
     makeObservable(this, {
       post: computed,
     });
-  }
-
-  get post() {
-    return this.store.post.byId.get(this.postId);
   }
 }

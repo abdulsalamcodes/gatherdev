@@ -2,18 +2,33 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
       id
-      name
+      username
+      email
       posts {
         items {
           id
-          title
+          content
+          code
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
           __typename
         }
         nextToken
@@ -25,17 +40,22 @@ export const getBlog = /* GraphQL */ `
     }
   }
 `;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        username
+        email
         posts {
+          nextToken
+          __typename
+        }
+        comments {
           nextToken
           __typename
         }
@@ -52,11 +72,17 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
-      title
-      blog {
+      content
+      code
+      author {
         id
-        name
+        username
+        email
         posts {
+          nextToken
+          __typename
+        }
+        comments {
           nextToken
           __typename
         }
@@ -70,6 +96,7 @@ export const getPost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
           __typename
         }
@@ -78,7 +105,7 @@ export const getPost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
       __typename
     }
   }
@@ -92,10 +119,12 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        blog {
+        content
+        code
+        author {
           id
-          name
+          username
+          email
           createdAt
           updatedAt
           __typename
@@ -106,7 +135,7 @@ export const listPosts = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
         __typename
       }
       nextToken
@@ -120,10 +149,12 @@ export const getComment = /* GraphQL */ `
       id
       post {
         id
-        title
-        blog {
+        content
+        code
+        author {
           id
-          name
+          username
+          email
           createdAt
           updatedAt
           __typename
@@ -134,12 +165,29 @@ export const getComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
+        __typename
+      }
+      author {
+        id
+        username
+        email
+        posts {
+          nextToken
+          __typename
+        }
+        comments {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
       __typename
     }
@@ -156,15 +204,25 @@ export const listComments = /* GraphQL */ `
         id
         post {
           id
-          title
+          content
+          code
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
+          __typename
+        }
+        author {
+          id
+          username
+          email
+          createdAt
+          updatedAt
           __typename
         }
         content
         createdAt
         updatedAt
+        userCommentsId
         postCommentsId
         __typename
       }

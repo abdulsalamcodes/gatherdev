@@ -1,15 +1,8 @@
-"use client";
-
+import Home from "@/components/Home/Home";
 import React from "react";
-import { Flex, PasswordField, TextField } from "@aws-amplify/ui-react";
-import '@aws-amplify/ui-react/styles.css';
 
 const HomePage = () => {
-  return (
-    <div className="">
-      <header>Home</header>
-    </div>
-  );
-};
+  return <Home />
+}
 
 export default HomePage;

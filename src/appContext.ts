@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+"use client"
+
+import { createContext, useContext } from "react";
 import AppStore from "./stores/app";
 import AppApi from "./appApi";
 
@@ -7,11 +9,11 @@ interface AppContextType {
   api: AppApi;
 }
 
-const AppContext = React.createContext<null | AppContextType>(null);
+const MainContext = createContext<null | AppContextType>(null);
 
-export const useAppContext = () => {
-  const context = useContext(AppContext);
+export const useMainContext = () => {
+  const context = useContext(MainContext);
   return context as AppContextType;
 };
 
-export default AppContext;
+export default MainContext;

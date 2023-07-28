@@ -9,6 +9,8 @@ import awsconfig from "../../aws-exports";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AuthStore from "@/stores/AuthStore";
+import { useMainContext } from "@/appContext";
 
 Amplify.configure(awsconfig);
 
@@ -33,6 +35,7 @@ const Login = () => {
   const { tokens } = useTheme();
   const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
+  const { store } = useMainContext();
 
   const css = `
   .custom-card-class {
@@ -51,6 +54,7 @@ const Login = () => {
       const user = await Auth.signIn(username, password);
       if (user) {
         toast.success("Login successful");
+        store.auth.setCurrentUser(user);
         console.log("User", user);
         router.push("/home");
       }
@@ -72,11 +76,10 @@ const Login = () => {
 
   return (
     <FormikProvider value={formik}>
-      <div className="flex flex-col items-center justify-center bg-gray-black">
+      <div className="flex flex-col items-center p-20 justify-center bg-gray-black">
         <form className="w-1/3" onSubmit={formik.handleSubmit}>
           <header className="">
-            <h1 className="mb-5 text-center text-xl">
-            Access your account            </h1>
+            <h1 className="mb-5 text-center text-xl">Access your account </h1>
           </header>
           <style>{css}</style>
           <Card className="custom-card-class">

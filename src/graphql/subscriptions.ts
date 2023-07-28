@@ -2,18 +2,33 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onCreateBlog(filter: $filter) {
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
       id
-      name
+      username
+      email
       posts {
         items {
           id
-          title
+          content
+          code
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
           __typename
         }
         nextToken
@@ -25,18 +40,33 @@ export const onCreateBlog = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onUpdateBlog(filter: $filter) {
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
       id
-      name
+      username
+      email
       posts {
         items {
           id
-          title
+          content
+          code
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
           __typename
         }
         nextToken
@@ -48,18 +78,33 @@ export const onUpdateBlog = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onDeleteBlog(filter: $filter) {
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
       id
-      name
+      username
+      email
       posts {
         items {
           id
-          title
+          content
+          code
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
           __typename
         }
         nextToken
@@ -75,11 +120,17 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
     onCreatePost(filter: $filter) {
       id
-      title
-      blog {
+      content
+      code
+      author {
         id
-        name
+        username
+        email
         posts {
+          nextToken
+          __typename
+        }
+        comments {
           nextToken
           __typename
         }
@@ -93,6 +144,7 @@ export const onCreatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
           __typename
         }
@@ -101,7 +153,7 @@ export const onCreatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
       __typename
     }
   }
@@ -110,11 +162,17 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
     onUpdatePost(filter: $filter) {
       id
-      title
-      blog {
+      content
+      code
+      author {
         id
-        name
+        username
+        email
         posts {
+          nextToken
+          __typename
+        }
+        comments {
           nextToken
           __typename
         }
@@ -128,6 +186,7 @@ export const onUpdatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
           __typename
         }
@@ -136,7 +195,7 @@ export const onUpdatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
       __typename
     }
   }
@@ -145,11 +204,17 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
     onDeletePost(filter: $filter) {
       id
-      title
-      blog {
+      content
+      code
+      author {
         id
-        name
+        username
+        email
         posts {
+          nextToken
+          __typename
+        }
+        comments {
           nextToken
           __typename
         }
@@ -163,6 +228,7 @@ export const onDeletePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
           __typename
         }
@@ -171,7 +237,7 @@ export const onDeletePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
       __typename
     }
   }
@@ -182,10 +248,12 @@ export const onCreateComment = /* GraphQL */ `
       id
       post {
         id
-        title
-        blog {
+        content
+        code
+        author {
           id
-          name
+          username
+          email
           createdAt
           updatedAt
           __typename
@@ -196,12 +264,29 @@ export const onCreateComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
+        __typename
+      }
+      author {
+        id
+        username
+        email
+        posts {
+          nextToken
+          __typename
+        }
+        comments {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
       __typename
     }
@@ -213,10 +298,12 @@ export const onUpdateComment = /* GraphQL */ `
       id
       post {
         id
-        title
-        blog {
+        content
+        code
+        author {
           id
-          name
+          username
+          email
           createdAt
           updatedAt
           __typename
@@ -227,12 +314,29 @@ export const onUpdateComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
+        __typename
+      }
+      author {
+        id
+        username
+        email
+        posts {
+          nextToken
+          __typename
+        }
+        comments {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
       __typename
     }
@@ -244,10 +348,12 @@ export const onDeleteComment = /* GraphQL */ `
       id
       post {
         id
-        title
-        blog {
+        content
+        code
+        author {
           id
-          name
+          username
+          email
           createdAt
           updatedAt
           __typename
@@ -258,12 +364,29 @@ export const onDeleteComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
+        __typename
+      }
+      author {
+        id
+        username
+        email
+        posts {
+          nextToken
+          __typename
+        }
+        comments {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
       __typename
     }

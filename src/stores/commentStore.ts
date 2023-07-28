@@ -1,7 +1,7 @@
 import Comment from "@/models/commentModel";
-import IComment from "@/types/comment";
 import { ObservableMap, action, computed, makeObservable } from "mobx";
 import AppStore from "./app";
+import { IComment } from "@/types/comment";
 
 export default class CommentStore {
     byId = new ObservableMap<number, Comment>();
@@ -13,6 +13,7 @@ export default class CommentStore {
     }
 
     load(comments: IComment[]) {
+        // @ts-ignore
         comments.forEach((it) => this.byId.set(it.id, new Comment(this.store, it)))
     }
 

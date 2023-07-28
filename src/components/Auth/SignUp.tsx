@@ -185,7 +185,7 @@ const SignUp = () => {
   return (
     <FormikProvider value={formik}>
       {!isCodeSent ? (
-        <div className="flex flex-col items-center justify-center bg-gray-black">
+        <div className="flex flex-col items-center p-20 justify-center bg-gray-black">
           <form className="w-1/3" onSubmit={formik.handleSubmit}>
             <header className="">
               <h1 className="mb-5 text-center text-xl">
