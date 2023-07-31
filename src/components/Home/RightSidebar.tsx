@@ -1,12 +1,12 @@
 import { useMainContext } from "@/appContext";
+import { AuthStore } from "@/stores/AuthStore";
 import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 
 const RightSidebar = () => {
-  const { store } = useMainContext();
-
+ 
   useEffect(() => {
-    store.auth.loadAllUsers();
+    AuthStore.loadAllUsers();
   }, []);
 
   const developerTools = [
@@ -37,7 +37,7 @@ const RightSidebar = () => {
           Recommended Users
         </h2>
         <ul>
-          {store.auth.allUsers.map((user) => (
+          {AuthStore.allUsers.map((user) => (
             <li key={user.id} className="flex items-center mb-2">
               <img
                 src={

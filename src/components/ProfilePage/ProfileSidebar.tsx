@@ -1,13 +1,14 @@
 import { useMainContext } from "@/appContext";
+import { AuthStore } from "@/stores/AuthStore";
+import Link from "next/link";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { FaUserEdit, FaUserPlus } from "react-icons/fa";
+import { FaTools, FaUserEdit, FaUserPlus } from "react-icons/fa";
 
 type Props = {};
 
 const ProfileSidebar = (props: Props) => {
-  const { store } = useMainContext();
-  const user = store.auth.currentUser;
+   const user = AuthStore.currentUser;
 
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
@@ -38,9 +39,9 @@ const ProfileSidebar = (props: Props) => {
 
       {/* User Actions */}
       <div className="flex space-x-2 mb-4 flex-wrap gap-2">
-        <button className="flex items-center text-sm justify-center bg-accent-primary hover:bg-accent-secondary text-white px-4 py-2 rounded-md flex-grow">
-          <FaUserEdit className="mr-2" /> Edit Profile
-        </button>
+        <Link className="flex items-center text-sm justify-center bg-accent-primary hover:bg-accent-secondary text-white px-4 py-2 rounded-md flex-grow" href={'/settings'}>
+          <FaTools className="mr-2" /> Settings
+        </Link>
 
         <button className="flex items-center text-sm justify-center border border-accent-primary text-accent-primary hover:text-accent-secondary px-4 py-2 rounded-md flex-grow">
           <FaUserPlus className="mr-2" /> Follow

@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Providers } from "@/providers";
 
 const fira_code = Fira_Code({ subsets: ["latin"] });
 
@@ -24,10 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fira_code.className}>
-        <Providers>
+        {/* <Providers> */}
           <Navbar />
           {children}
-        </Providers>
+        {/* </Providers> */}
         <ToastContainer
           position="top-right"
           autoClose={5000}

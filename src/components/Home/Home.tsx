@@ -16,15 +16,15 @@ import CreateNewPost from "./CreateNewPost";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { AuthStore } from "@/stores/AuthStore";
+import { PostStore } from "@/stores/postStore";
 
 const PostPage = () => {
-  const { store } = useMainContext();
-  const [loading, setLoading] = useState(false);
+   const [loading, setLoading] = useState(false);
   const [posting, setPosting] = useState(false);
   const router = useRouter();
 
   const logUserOut = () => {
-    store.auth.logout();
+    AuthStore.logout();
     router.push("/login");
   };
 
@@ -40,7 +40,7 @@ const PostPage = () => {
 
         if (res.data?.listPosts?.items) {
           // @ts-ignore
-          store.post.loadPosts(res.data.listPosts.items);
+          PostStore.loadPosts(res.data.listPosts.items);
         }
       } else {
         logUserOut();
@@ -65,7 +65,7 @@ const PostPage = () => {
           query: mutations.createPost,
           variables: {
             input: {
-              userPostsId: store.auth.currentUser?.id,
+              userPostsId: AuthStore.currentUser?.id,
               content,
               language: "javascript",
               topicTag: "javascript",
@@ -76,7 +76,7 @@ const PostPage = () => {
         });
         console.log("newPostResp:", newPostResp.data?.createPost);
         // @ts-ignore
-        store.post.addPost(newPostResp.data?.createPost);
+        PostStore.addPost(newPostResp.data?.createPost);
       } else {
         logUserOut();
       }
@@ -91,7 +91,7 @@ const PostPage = () => {
     fetchPosts();
     const currentUserId = JSON.parse(localStorage.getItem("currentUserId") || "null");
     if (currentUserId) {
-      store.auth.loadCurrentUser(currentUserId);
+      AuthStore.loadCurrentUser(currentUserId);
     }
   }, []);
 
@@ -110,8 +110,8 @@ const PostPage = () => {
               <LoadingComponent />
             ) : (
               <section>
-                {store.post.allPosts?.length > 0 ? (
-                  store.post.allPosts?.map((post) => (
+                {PostStore.allPosts?.length > 0 ? (
+                  PostStore.allPosts?.map((post) => (
                     <PostCard key={post.id} post={post} />
                   ))
                 ) : (

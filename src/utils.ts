@@ -8,7 +8,7 @@ import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 
 export async function createUserInAppSync(user: IUser) {
   try {
-        // @ts-ignore
+    // @ts-ignore
     const { data } = await API.graphql({
       query: mutations.createUser,
       authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
@@ -55,4 +55,12 @@ export function getUserStoredId() {
 
 export function clearCurrentUserFromLocalStorage() {
   localStorage.removeItem("currentUserId");
+}
+
+// return localStorage.
+
+export function returnLocalStorage() {
+  if (typeof window !== "undefined") {
+    return localStorage;
+  }
 }

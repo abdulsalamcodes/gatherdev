@@ -36,8 +36,7 @@ const Login = () => {
   const { tokens } = useTheme();
   const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
-  const { store } = useMainContext();
-
+ 
   const css = `
   .custom-card-class {
     background-color: #1e1e1e;

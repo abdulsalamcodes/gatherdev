@@ -1,15 +1,16 @@
+"use client"
+
 import { IPost } from "@/types/post";
 import {
-  clearCurrentUserFromLocalStorage,
-  // persistUserData,
+  clearCurrentUserFromLocalStorage, returnLocalStorage,
 } from "@/utils";
 import { API } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { makeObservable, observable, action } from "mobx";
 import { makePersistable } from "mobx-persist-store";
-import 'fake-indexeddb/auto';
-import localforage from "localforage";
+// import localforage from "localforage";
+
 
 export interface IUser {
   id: string;
@@ -45,7 +46,7 @@ class AuthStoreClass {
     makePersistable(this, {
       name: "AuthStore",
       properties: ["currentUser", "allUsers"],
-      storage: localforage,
+      storage: returnLocalStorage(),
     });
   }
 

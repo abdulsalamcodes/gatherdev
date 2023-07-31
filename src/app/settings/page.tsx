@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import { useMainContext } from "@/appContext";
 import { observer } from "mobx-react";
+import { AuthStore } from "@/stores/AuthStore";
 
 const SettingsPage = () => {
-  const { store } = useMainContext();
-
-  const [fullname, setFullname] = useState(store.auth.currentUser?.fullname || "");
-  const [title, setTitle] = useState(store.auth.currentUser?.title || "");
+ 
+  const [fullname, setFullname] = useState(AuthStore.currentUser?.fullname || "");
+  const [title, setTitle] = useState(AuthStore.currentUser?.title || "");
 
   // const handleDarkModeToggle = () => {
   //   store.app.toggleDarkMode();
@@ -16,8 +16,8 @@ const SettingsPage = () => {
 
   const handleSaveChanges = () => {
     // Update the user's fullname and title
-    const updatedUser = { ...store.auth.currentUser, fullname, title };
-    store.auth.loadCurrentUser(updatedUser.id);
+    const updatedUser = { ...AuthStore.currentUser, fullname, title };
+    AuthStore.loadCurrentUser(updatedUser.id);
   };
 
   return (

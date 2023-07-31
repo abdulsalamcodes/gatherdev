@@ -1,10 +1,10 @@
 import { useMainContext } from "@/appContext";
+import { AuthStore } from "@/stores/AuthStore";
 import { observer } from "mobx-react";
 import React from "react";
 
 const LeftSidebar = () => {
-  const { store } = useMainContext();
-
+ 
   return (
     <aside className="px-4 sticky top-20">
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
@@ -12,7 +12,7 @@ const LeftSidebar = () => {
         <div className="flex items-center mb-4">
           <img
             src={
-              store.auth.currentUser?.profilePicture ||
+              AuthStore.currentUser?.profilePicture ||
               "https://randomuser.me/api/portraits/men/1.jpg"
             }
             alt="Profile"
@@ -20,30 +20,30 @@ const LeftSidebar = () => {
           />
           <div>
             <span className="text-xl font-bold">
-              {store.auth.currentUser?.fullname || "Anonymous"}
+              {AuthStore.currentUser?.fullname || "Anonymous"}
             </span>
             <p className="text-gray-500 dark:text-gray-300">
-              {store.auth.currentUser?.username || "loading..."}
+              {AuthStore.currentUser?.username || "loading..."}
             </p>
           </div>
         </div>
 
         {/* Bio */}
         <p className="text-gray-800 dark:text-white text-sm mb-4">
-          {store.auth.currentUser?.title}
+          {AuthStore.currentUser?.title}
         </p>
 
         {/* Friends/Followers Count */}
         <div className="flex justify-between text-gray-800 dark:text-white text-sm">
           <div>
             <span className="font-bold">
-              {store.auth.currentUser?.friendsCount || 0}
+              {AuthStore.currentUser?.friendsCount || 0}
             </span>{" "}
             Friends
           </div>
           <div>
             <span className="font-bold">
-              {store.auth.currentUser?.followersCount || 0}
+              {AuthStore.currentUser?.followersCount || 0}
             </span>{" "}
             Followers
           </div>

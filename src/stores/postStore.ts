@@ -2,10 +2,10 @@ import { action, computed, makeObservable, observable } from "mobx";
 import { IPost } from "@/types/post";
 import AppStore from "./app";
 
-class PostStore {
+class PostStoreClass {
   posts: IPost[];
 
-  constructor(private store: AppStore) {
+  constructor() {
     this.posts = [];
     makeObservable(this, {
       posts: observable,
@@ -28,4 +28,5 @@ class PostStore {
   }
 }
 
-export default PostStore;
+export default PostStoreClass;
+export const PostStore = new PostStoreClass();
