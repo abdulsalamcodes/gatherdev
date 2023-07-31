@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  CreatePostInput,
-  CreatePostMutation,
-  GetPostQuery,
-  ListPostsQuery,
-} from "@/API";
+import { CreatePostMutation, ListPostsQuery } from "@/API";
 import { useMainContext } from "@/appContext";
 import { GRAPHQL_AUTH_MODE, GraphQLQuery } from "@aws-amplify/api";
 import { API, Auth } from "aws-amplify";
@@ -13,38 +8,26 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import * as mutations from "../../graphql/mutations";
 import * as queries from "../../graphql/queries";
-import AuthStore from "@/stores/AuthStore";
 import LoadingComponent from "@/components/AtomicComponents/Loading";
-import CButton from "../AtomicComponents/CButton";
 import PostCard from "./PostCard";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
 import CreateNewPost from "./CreateNewPost";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { AuthStore } from "@/stores/AuthStore";
 
 const PostPage = () => {
   const { store } = useMainContext();
   const [loading, setLoading] = useState(false);
   const [posting, setPosting] = useState(false);
   const router = useRouter();
-  const user = store.auth.currentUser;
-
-  const postDetails = (content: string, code: string) => ({
-    author: {
-      id: user?.id,
-      username: user?.username,
-      fullname: user?.fullname,
-      email: user?.email,
-      title: user?.title,
-    },
-    content,
-    code,
-  });
 
   const logUserOut = () => {
     store.auth.logout();
     router.push("/login");
   };
+
   async function fetchPosts() {
     try {
       setLoading(true);
@@ -52,19 +35,23 @@ const PostPage = () => {
       if (user) {
         const res = await API.graphql<GraphQLQuery<ListPostsQuery>>({
           query: queries.listPosts,
-          // variables: { limit: 2 },
           authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
         });
 
         if (res.data?.listPosts?.items) {
           // @ts-ignore
-          store.post.load(res.data.listPosts.items);
+          store.post.loadPosts(res.data.listPosts.items);
         }
       } else {
         logUserOut();
       }
-    } catch (error) {
-      console.error("Error fetching post:", error);
+    } catch (error: any) {
+      if (error === "The user is not authenticated") {
+        router.push("/login");
+      }
+      toast.error(error || "Something went wrong.", {
+        toastId: "fetchPostsError",
+      });
     }
     setLoading(false);
   }
@@ -74,15 +61,27 @@ const PostPage = () => {
       setPosting(true);
       const user = await Auth.currentAuthenticatedUser();
       if (user) {
-        await API.graphql<GraphQLQuery<CreatePostMutation>>({
+        const newPostResp = await API.graphql<GraphQLQuery<CreatePostMutation>>({
           query: mutations.createPost,
-          variables: { input: postDetails(content, code) },
+          variables: {
+            input: {
+              userPostsId: store.auth.currentUser?.id,
+              content,
+              language: "javascript",
+              topicTag: "javascript",
+              code,
+            },
+          },
           authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
         });
+        console.log("newPostResp:", newPostResp.data?.createPost);
+        // @ts-ignore
+        store.post.addPost(newPostResp.data?.createPost);
       } else {
         logUserOut();
       }
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error || "Something went wrong.");
       console.error("Error creating post:", error);
     }
     setPosting(false);
@@ -90,6 +89,10 @@ const PostPage = () => {
 
   useEffect(() => {
     fetchPosts();
+    const currentUserId = JSON.parse(localStorage.getItem("currentUserId") || "null");
+    if (currentUserId) {
+      store.auth.loadCurrentUser(currentUserId);
+    }
   }, []);
 
   return (
@@ -106,21 +109,15 @@ const PostPage = () => {
             {loading ? (
               <LoadingComponent />
             ) : (
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-                {store.post.posts?.length > 0 ? (
-                  store.post.posts?.map((post) => (
-                    <PostCard
-                      key={post.id}
-                      post={{
-                        ...post,
-                        code: "function add(a, b) {\n  return a + b;\n}",
-                      }}
-                    />
+              <section>
+                {store.post.allPosts?.length > 0 ? (
+                  store.post.allPosts?.map((post) => (
+                    <PostCard key={post.id} post={post} />
                   ))
                 ) : (
                   <p className="text-center">No Posts Yet</p>
                 )}
-              </div>
+              </section>
             )}
           </section>
 

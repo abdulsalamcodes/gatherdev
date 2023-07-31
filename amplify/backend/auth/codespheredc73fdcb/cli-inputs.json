@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "codesphere7eb6a5c7_identitypool_7eb6a5c7",
+    "identityPoolName": "codespheredc73fdcb_identitypool_dc73fdcb",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "codesp7eb6a5c7",
-    "userPoolName": "codesphere7eb6a5c7_userpool_7eb6a5c7",
+    "resourceNameTruncated": "codespdc73fdcb",
+    "userPoolName": "codespheredc73fdcb_userpool_dc73fdcb",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,15 +31,14 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "codesp7eb6a5c7_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "codespdc73fdcb_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "7eb6a5c7",
-    "resourceName": "codesphere7eb6a5c7",
+    "sharedId": "dc73fdcb",
+    "resourceName": "codespheredc73fdcb",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "defaultSocial",
     "hostedUI": true,
-    "triggers": {},
-    "hostedUIDomainName": "codesphere",
+    "hostedUIDomainName": "codespheredc73fdcb-dc73fdcb",
     "authProvidersUserPool": [],
     "hostedUIProviderMeta": "[]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",

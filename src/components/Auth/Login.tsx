@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AuthStore from "@/stores/AuthStore";
 import { useMainContext } from "@/appContext";
+import { createUserInAppSync } from "@/utils";
 
 Amplify.configure(awsconfig);
 
@@ -53,16 +54,34 @@ const Login = () => {
       setReqLoading(true);
       const user = await Auth.signIn(username, password);
       if (user) {
-        toast.success("Login successful");
-        store.auth.setCurrentUser(user);
-        console.log("User", user);
+        if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+          const { requiredAttributes } = user.challengeParam; // the array of required attributes, e.g ['email', 'phone_number']
+          const newPassword = "newPassword";
+          const loggedInUser = await Auth.completeNewPassword(
+            user, // the Cognito User Object
+            newPassword, // the new password
+            requiredAttributes
+          );
+          console.log(loggedInUser);
+        }
+
+        localStorage.setItem(
+          "currentUserId",
+          JSON.stringify(user.attributes.sub)
+        );
         router.push("/home");
+        toast.success("Login successful");
       }
-    } catch (error) {
-      console.log("error signing in", error);
-      toast.error("Login failed, please try again.");
+    } catch (error: any) {
+      if (error.name === "UserNotFoundException") {
+        toast.error("User does not exist, Please sign up.");
+        return;
+      }
+      console.log("[LOGININ ERROR]", error);
+      toast.error(error.message || "Login failed, please try again.");
+    } finally {
+      setReqLoading(false);
     }
-    setReqLoading(false);
   }
 
   const formik = useFormik({

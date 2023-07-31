@@ -7,12 +7,20 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser(filter: $filter) {
       id
       username
+      fullname
       email
+      title
+      friendsCount
+      followersCount
+      profilePicture
       posts {
         items {
           id
           content
           code
+          language
+          topicTag
+          likes
           createdAt
           updatedAt
           userPostsId
@@ -45,12 +53,20 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser(filter: $filter) {
       id
       username
+      fullname
       email
+      title
+      friendsCount
+      followersCount
+      profilePicture
       posts {
         items {
           id
           content
           code
+          language
+          topicTag
+          likes
           createdAt
           updatedAt
           userPostsId
@@ -83,12 +99,20 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser(filter: $filter) {
       id
       username
+      fullname
       email
+      title
+      friendsCount
+      followersCount
+      profilePicture
       posts {
         items {
           id
           content
           code
+          language
+          topicTag
+          likes
           createdAt
           updatedAt
           userPostsId
@@ -122,10 +146,17 @@ export const onCreatePost = /* GraphQL */ `
       id
       content
       code
+      language
+      topicTag
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -151,6 +182,7 @@ export const onCreatePost = /* GraphQL */ `
         nextToken
         __typename
       }
+      likes
       createdAt
       updatedAt
       userPostsId
@@ -164,10 +196,17 @@ export const onUpdatePost = /* GraphQL */ `
       id
       content
       code
+      language
+      topicTag
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -193,6 +232,7 @@ export const onUpdatePost = /* GraphQL */ `
         nextToken
         __typename
       }
+      likes
       createdAt
       updatedAt
       userPostsId
@@ -206,10 +246,17 @@ export const onDeletePost = /* GraphQL */ `
       id
       content
       code
+      language
+      topicTag
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -235,6 +282,7 @@ export const onDeletePost = /* GraphQL */ `
         nextToken
         __typename
       }
+      likes
       createdAt
       updatedAt
       userPostsId
@@ -250,10 +298,17 @@ export const onCreateComment = /* GraphQL */ `
         id
         content
         code
+        language
+        topicTag
         author {
           id
           username
+          fullname
           email
+          title
+          friendsCount
+          followersCount
+          profilePicture
           createdAt
           updatedAt
           __typename
@@ -262,6 +317,7 @@ export const onCreateComment = /* GraphQL */ `
           nextToken
           __typename
         }
+        likes
         createdAt
         updatedAt
         userPostsId
@@ -270,7 +326,12 @@ export const onCreateComment = /* GraphQL */ `
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -300,10 +361,17 @@ export const onUpdateComment = /* GraphQL */ `
         id
         content
         code
+        language
+        topicTag
         author {
           id
           username
+          fullname
           email
+          title
+          friendsCount
+          followersCount
+          profilePicture
           createdAt
           updatedAt
           __typename
@@ -312,6 +380,7 @@ export const onUpdateComment = /* GraphQL */ `
           nextToken
           __typename
         }
+        likes
         createdAt
         updatedAt
         userPostsId
@@ -320,7 +389,12 @@ export const onUpdateComment = /* GraphQL */ `
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -350,10 +424,17 @@ export const onDeleteComment = /* GraphQL */ `
         id
         content
         code
+        language
+        topicTag
         author {
           id
           username
+          fullname
           email
+          title
+          friendsCount
+          followersCount
+          profilePicture
           createdAt
           updatedAt
           __typename
@@ -362,6 +443,7 @@ export const onDeleteComment = /* GraphQL */ `
           nextToken
           __typename
         }
+        likes
         createdAt
         updatedAt
         userPostsId
@@ -370,7 +452,12 @@ export const onDeleteComment = /* GraphQL */ `
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename

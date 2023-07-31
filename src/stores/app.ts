@@ -6,4 +6,5 @@ export default class AppStore {
     post = new PostStore(this);
     comment = new CommentStore(this);
     auth = new AuthStore();
+    // app = new Store();
 }

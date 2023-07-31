@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Card, useTheme } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import * as Yup from "yup";
-import { Amplify, Auth, Hub } from "aws-amplify";
+import { API, Amplify, Auth, Hub } from "aws-amplify";
 import { FormikProvider, useFormik } from "formik";
 import CButton from "../AtomicComponents/CButton";
 import awsconfig from "../../aws-exports";
 import VerificationInput from "react-verification-input";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import * as mutations from "../../graphql/mutations";
 import { useRouter } from "next/navigation";
+import { IUser } from "@/stores/AuthStore";
+import { createUserInAppSync } from "@/utils";
 
 Amplify.configure(awsconfig);
 
@@ -49,7 +52,6 @@ const SignUp = () => {
   const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
 
-
   const css = `
   .custom-card-class {
     background-color: #1e1e1e;
@@ -61,31 +63,23 @@ const SignUp = () => {
       const { event } = payload;
       if (event === "autoSignIn") {
         const user = payload.data;
-        console.log()
+        // assign user
+        console.log("User Login successful::", user);
         if (user) {
-          console.log("User Login successful!");
+          setIsCodeSent(false);
+          setReqLoading(false);
+          createUserInAppSync({
+            username: user.username,
+            email: user.attributes.email,
+            id: user.attributes.sub,
+          });
           router.push("/home");
         }
-        // assign user
       } else if (event === "autoSignIn_failure") {
         // redirect to sign in page
-        router.push('/login');
+        router.push("/login");
       }
     });
-  }
-
-  async function confirmSignUp({ username, code }: ConfirmSignUpParameters) {
-    try {
-      setReqLoading(true);
-      await Auth.confirmSignUp(username, code);
-      toast.success("Sign up successful, please login");
-      setIsCodeSent(false);
-      console.log("sign up successful!");
-    } catch (error: any) {
-      toast.error("An error occurred");
-      console.log("error confirming sign up", error);
-    }
-    setReqLoading(false);
   }
 
   async function signUp({ username, password, email }: SignUpParameters) {
@@ -114,6 +108,19 @@ const SignUp = () => {
       console.log("error signing up:", error);
     }
     setReqLoading(false);
+  }
+
+  async function confirmSignUp({ username, code }: ConfirmSignUpParameters) {
+    try {
+      setReqLoading(true);
+      await Auth.confirmSignUp(username, code);
+      listenToAutoSignInEvent();
+      toast.success("Sign up successful, please login");
+    } catch (error: any) {
+      toast.error("An error occurred");
+      setReqLoading(false);
+      console.log("error confirming sign up", error);
+    }
   }
 
   async function resendConfirmationCode({
@@ -151,7 +158,7 @@ const SignUp = () => {
         </header>
         <style>{css}</style>
         <Card className="custom-card-class">
-          <div className="flex flex-col items-center mt-6">
+          <div className="flex flex-col gap-4 items-center mt-6">
             <VerificationInput
               validChars="0-9"
               autoFocus
@@ -194,20 +201,6 @@ const SignUp = () => {
             </header>
             <style>{css}</style>
             <Card className="custom-card-class">
-              <label htmlFor="username" className="block mb-5">
-                <span className="text-white mb-3">Username</span>
-                <input
-                  type="text"
-                  id="username"
-                  className="mt-1 px-4 py-2 block w-full rounded
-                   outline-none
-                   bg-gray-900 text-white border border-gray-700"
-                  {...formik.getFieldProps("username")}
-                />
-                {formik.touched.username && formik.errors.username && (
-                  <p className="text-red-500">{formik.errors.username}</p>
-                )}
-              </label>
               <label htmlFor="email" className="block mb-5">
                 <span className="text-white mb-3">Email</span>
                 <input
@@ -222,6 +215,21 @@ const SignUp = () => {
                   <p className="text-red-500">{formik.errors.email}</p>
                 )}
               </label>
+              <label htmlFor="username" className="block mb-5">
+                <span className="text-white mb-3">Username</span>
+                <input
+                  type="text"
+                  id="username"
+                  className="mt-1 px-4 py-2 block w-full rounded
+                   outline-none
+                   bg-gray-900 text-white border border-gray-700"
+                  {...formik.getFieldProps("username")}
+                />
+                {formik.touched.username && formik.errors.username && (
+                  <p className="text-red-500">{formik.errors.username}</p>
+                )}
+              </label>
+
               <label htmlFor="password" className="block mb-5">
                 <span className="text-white mb-3">Password</span>
                 <input

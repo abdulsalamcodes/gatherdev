@@ -1,36 +1,32 @@
-import {
-    action,
-    computed,
-    makeObservable,
-    observable,
-    ObservableMap,
-} from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import Post from "@/models/postModel";
 import { IPost } from "@/types/post";
 import AppStore from "./app";
 
-class PostStoreClass {
+class PostStore {
+  posts: IPost[];
 
-    byId = new ObservableMap<string, Post>();
-    public posts: IPost[] | [];
+  constructor(private store: AppStore) {
+    this.posts = [];
+    makeObservable(this, {
+      posts: observable,
+      loadPosts: action,
+      addPost: action,
+      allPosts: computed,
+    });
+  }
 
-    constructor(private store: AppStore) {
-        this.posts = [],
+  loadPosts(posts: IPost[]) {
+    this.posts = posts;
+  }
 
-            makeObservable(this, {
-                load: action,
-                posts: observable,
-                all: computed,
-            });
-    }
+  addPost(post: IPost) {
+    this.posts.unshift(post);
+  }
 
-    load(posts: IPost[] | []) {
-        this.posts = posts;
-    }
-
-    get all() {
-        return Array.from(this.byId.values());
-    }
+  get allPosts() {
+    return Array.from(this.posts);
+  }
 }
-// const PostStore = new PostStoreClass();
-export default PostStoreClass;
+
+export default PostStore;

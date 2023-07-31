@@ -27,9 +27,9 @@ export default function RootLayout({
   const store = new AppStore();
   const api = new AppApi(store);
 
-  if (!store.auth.currentUser) {
-    store.auth.logout();
-  }
+  // if (!store.auth.currentUser) {
+  //   store.auth.logout();
+  // }
 
   return (
     <html lang="en">

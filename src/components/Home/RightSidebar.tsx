@@ -1,30 +1,31 @@
-import React from "react";
-import {
-  AiOutlineUsergroupAdd,
-  AiOutlineMessage,
-  AiOutlineStar,
-} from "react-icons/ai";
+import { useMainContext } from "@/appContext";
+import { observer } from "mobx-react";
+import React, { useEffect } from "react";
 
 const RightSidebar = () => {
-  // Dummy data for recommended users
-  const recommendedUsers = [
+  const { store } = useMainContext();
+
+  useEffect(() => {
+    store.auth.loadAllUsers();
+  }, []);
+
+  const developerTools = [
     {
-      id: 1,
-      username: "JaneSmith",
-      fullName: "Jane Smith",
-      profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
+      title: "GitHub",
+      description:
+        "A development platform for hosting and reviewing code, managing projects, and building software.",
+      link: "https://github.com/",
     },
     {
-      id: 2,
-      username: "SamBrown",
-      fullName: "Sam Brown",
-      profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
+      title: "Visual Studio Code",
+      description:
+        "A powerful code editor with built-in Git integration and support for various programming languages.",
+      link: "https://code.visualstudio.com/",
     },
     {
-      id: 3,
-      username: "EmilyJohnson",
-      fullName: "Emily Johnson",
-      profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
+      title: "npm",
+      description: "A package manager for JavaScript and Node.js libraries.",
+      link: "https://www.npmjs.com/",
     },
   ];
 
@@ -36,19 +37,27 @@ const RightSidebar = () => {
           Recommended Users
         </h2>
         <ul>
-          {recommendedUsers.map((user) => (
+          {store.auth.allUsers.map((user) => (
             <li key={user.id} className="flex items-center mb-2">
               <img
-                src={user.profilePicture}
+                src={
+                  user.profilePicture ||
+                  "https://randomuser.me/api/portraits/men/1.jpg"
+                }
                 alt="User"
                 className="w-8 h-8 rounded-full mr-2"
               />
-              <a
-                href={`/users/${user.username}`}
-                className="text-gray-800 dark:text-white"
-              >
-                {user.fullName}
-              </a>
+              <div>
+                <a
+                  href={`/users/${user.username}`}
+                  className="text-gray-800 dark:text-white"
+                >
+                  {user.fullname}
+                </a>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  {user.title}
+                </p>
+              </div>
             </li>
           ))}
         </ul>
@@ -60,8 +69,13 @@ const RightSidebar = () => {
           Sponsored Content
         </h2>
         <p className="text-gray-800 dark:text-white">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec
-          consectetur dui.
+          Discover More about Codespere! Unleash your coding potential with us.
+          Join our exclusive live webinar at <a
+                href={'https://joinentre.com'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >joinentre.com</a>
         </p>
       </div>
 
@@ -71,19 +85,27 @@ const RightSidebar = () => {
           Developer Tools/Resources
         </h2>
         <ul>
-          <li className="mb-2">
-            <a href="/tools1">Tool 1</a>
-          </li>
-          <li className="mb-2">
-            <a href="/tools2">Tool 2</a>
-          </li>
-          <li className="mb-2">
-            <a href="/tools3">Tool 3</a>
-          </li>
+          {developerTools.map((tool) => (
+            <li key={tool.title} className="mb-4">
+              <a
+                href={tool.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                <h3 className="text-gray-800 dark:text-white font-bold mb-1">
+                  {tool.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {tool.description}
+                </p>
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </aside>
   );
 };
 
-export default RightSidebar;
+export default observer(RightSidebar);

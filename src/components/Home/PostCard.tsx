@@ -1,29 +1,29 @@
+import { IUser } from "@/stores/AuthStore";
+import { IPost } from "@/types/post";
 import React from "react";
 import { AiOutlineHeart, AiOutlineComment, AiOutlineBook } from "react-icons/ai";
 
-type IPost = {
-    author?: string;
-    content?: string;
-    code?: string;
-}
-const PostCard = ({ post }: { post: IPost}) => {
-  // Dummy data for the post
-//   const post = {
-//     author: "John Doe",
-//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-//     code: "function add(a, b) {\n  return a + b;\n}",
-//   };
-
+const PostCard = ({ post }: { post: IPost }) => {
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-5">
       {/* Author Details */}
       <div className="flex items-center mb-2">
         <img
-          src="https://randomuser.me/api/portraits/men/1.jpg"
+          src={
+            post.author?.profilePicture ||
+            "https://randomuser.me/api/portraits/men/1.jpg"
+          }
           alt="Author"
           className="w-8 h-8 rounded-full mr-2"
         />
-        <span className="text-gray-500 dark:text-gray-300 text-sm">{post.author}</span>
+        <div>
+          <span className="text-gray-500 dark:text-gray-300 text-sm font-semibold">
+            {post.author?.username}
+          </span>
+          <p className="text-gray-500 dark:text-gray-300 text-sm">
+            {post.author?.title}
+          </p>
+        </div>
       </div>
 
       {/* Text-based Content */}
@@ -31,8 +31,15 @@ const PostCard = ({ post }: { post: IPost}) => {
 
       {/* Code Section */}
       <pre className="bg-gray-900 text-white p-4 rounded-lg mb-4">
-        <code>{post.code}</code>
+        <code>{post?.code}</code>
       </pre>
+
+      {/* Topic Tag */}
+      {post?.topicTag && (
+        <div className="bg-accent-primary text-white py-1 px-3 rounded-lg mb-4">
+          #{post?.topicTag}
+        </div>
+      )}
 
       {/* Action Buttons */}
       <div className="flex justify-between">

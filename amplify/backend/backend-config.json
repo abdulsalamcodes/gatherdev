@@ -7,7 +7,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "codesphere7eb6a5c7"
+          "resourceName": "codespheredc73fdcb"
         }
       ],
       "output": {
@@ -16,7 +16,7 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authcodesphere7eb6a5c7"
+                "userPoolId": "authcodespheredc73fdcb"
               }
             }
           ],
@@ -33,7 +33,7 @@
     }
   },
   "auth": {
-    "codesphere7eb6a5c7": {
+    "codespheredc73fdcb": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {

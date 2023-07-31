@@ -1,13 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useMainContext } from "@/appContext";
 import PostCard from "@/components/Home/PostCard";
 import ProfileSidebar from "./ProfileSidebar";
+import { observer } from "mobx-react";
+import { IPost } from "@/types/post";
 
 const ProfilePage = () => {
   const { store } = useMainContext();
+
+  console.log("store.auth.currentUser", store.auth.currentUser);
+
+  // useEffect(() => {
+  //   const currentUserId = JSON.parse(localStorage.getItem("currentUserId") || "null");
+  //   if (currentUserId) {
+  //     store.auth.loadCurrentUser(currentUserId);
+  //   }
+  // }, []);
 
   return (
     <div className="bg-background text-text min-h-screen dark:text-white">
@@ -19,7 +30,6 @@ const ProfilePage = () => {
             {/* Add your left sidebar content here */}
           </aside>
           <div className="col-span-3">
-            Hello Main
             {/* Main Content Area */}
             {store.auth.currentUser ? (
               <section>
@@ -47,12 +57,21 @@ const ProfilePage = () => {
                 </div>
 
                 {/* User Posts */}
-                <div className="grid grid-cols-2 gap-4">
-                  {store.auth.currentUser.posts.map((post) => (
-                    <div key={post.id}>
-                      <PostCard post={post} />
+                <div className="mb-8">
+                  <h2 className="text-2xl font-bold mb-4">User Posts</h2>
+                  {/* @ts-ignore */}
+                  {store.auth.currentUser.posts?.items.length > 0 ? (
+                    <div className="flex flex-col gap-5">
+                      {/* @ts-ignore */}
+                      {store.auth.currentUser.posts?.items.map((post: IPost) => (
+                        <div key={post.id}>
+                          <PostCard post={post} />
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  ) : (
+                    <p className="text-gray-500">No posts yet.</p>
+                  )}
                 </div>
               </section>
             ) : null}
@@ -63,4 +82,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default observer(ProfilePage);

@@ -1,8 +1,8 @@
 import { useMainContext } from "@/appContext";
+import { observer } from "mobx-react";
 import React from "react";
 
 const LeftSidebar = () => {
-  // Dummy data for the user's profile
   const { store } = useMainContext();
 
   return (
@@ -11,16 +11,19 @@ const LeftSidebar = () => {
         {/* Profile Information */}
         <div className="flex items-center mb-4">
           <img
-            src={store.auth.currentUser?.profilePicture || 'https://randomuser.me/api/portraits/men/1.jpg'}
+            src={
+              store.auth.currentUser?.profilePicture ||
+              "https://randomuser.me/api/portraits/men/1.jpg"
+            }
             alt="Profile"
             className="w-12 h-12 rounded-full mr-4"
           />
           <div>
             <span className="text-xl font-bold">
-              {store.auth.currentUser?.username}
+              {store.auth.currentUser?.fullname || "Anonymous"}
             </span>
             <p className="text-gray-500 dark:text-gray-300">
-              {store.auth.currentUser?.username}
+              {store.auth.currentUser?.username || "loading..."}
             </p>
           </div>
         </div>
@@ -34,13 +37,13 @@ const LeftSidebar = () => {
         <div className="flex justify-between text-gray-800 dark:text-white text-sm">
           <div>
             <span className="font-bold">
-              {store.auth.currentUser?.friendsCount || 213}
+              {store.auth.currentUser?.friendsCount || 0}
             </span>{" "}
             Friends
           </div>
           <div>
             <span className="font-bold">
-              {store.auth.currentUser?.followersCount || 233}
+              {store.auth.currentUser?.followersCount || 0}
             </span>{" "}
             Followers
           </div>
@@ -51,13 +54,19 @@ const LeftSidebar = () => {
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
         <ul className="text-gray-800 dark:text-white">
           <li className="mb-2">
-            <a href="/profile">My Profile</a>
+            <a href="/profile" className="text-blue-500 hover:underline">
+              My Profile
+            </a>
           </li>
           <li className="mb-2">
-            <a href="/settings">Settings</a>
+            <a href="/settings" className="text-blue-500 hover:underline">
+              Settings
+            </a>
           </li>
           <li className="mb-2">
-            <a href="/notifications">Notifications</a>
+            <a href="/notifications" className="text-blue-500 hover:underline">
+              Notifications
+            </a>
           </li>
         </ul>
       </div>
@@ -69,13 +78,19 @@ const LeftSidebar = () => {
         </h2>
         <ul className="text-gray-800 dark:text-white">
           <li className="mb-2">
-            <a href="/topic1">#Topic1</a>
+            <a href="/topic1" className="text-green-500 hover:underline">
+              #Topic1
+            </a>
           </li>
           <li className="mb-2">
-            <a href="/topic2">#Topic2</a>
+            <a href="/topic2" className="text-green-500 hover:underline">
+              #Topic2
+            </a>
           </li>
           <li className="mb-2">
-            <a href="/topic3">#Topic3</a>
+            <a href="/topic3" className="text-green-500 hover:underline">
+              #Topic3
+            </a>
           </li>
         </ul>
       </div>
@@ -83,4 +98,4 @@ const LeftSidebar = () => {
   );
 };
 
-export default LeftSidebar;
+export default observer(LeftSidebar);

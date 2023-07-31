@@ -7,12 +7,20 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       username
+      fullname
       email
+      title
+      friendsCount
+      followersCount
+      profilePicture
       posts {
         items {
           id
           content
           code
+          language
+          topicTag
+          likes
           createdAt
           updatedAt
           userPostsId
@@ -50,7 +58,12 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -74,10 +87,17 @@ export const getPost = /* GraphQL */ `
       id
       content
       code
+      language
+      topicTag
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -103,6 +123,7 @@ export const getPost = /* GraphQL */ `
         nextToken
         __typename
       }
+      likes
       createdAt
       updatedAt
       userPostsId
@@ -121,10 +142,17 @@ export const listPosts = /* GraphQL */ `
         id
         content
         code
+        language
+        topicTag
         author {
           id
           username
+          fullname
           email
+          title
+          friendsCount
+          followersCount
+          profilePicture
           createdAt
           updatedAt
           __typename
@@ -133,6 +161,7 @@ export const listPosts = /* GraphQL */ `
           nextToken
           __typename
         }
+        likes
         createdAt
         updatedAt
         userPostsId
@@ -151,10 +180,17 @@ export const getComment = /* GraphQL */ `
         id
         content
         code
+        language
+        topicTag
         author {
           id
           username
+          fullname
           email
+          title
+          friendsCount
+          followersCount
+          profilePicture
           createdAt
           updatedAt
           __typename
@@ -163,6 +199,7 @@ export const getComment = /* GraphQL */ `
           nextToken
           __typename
         }
+        likes
         createdAt
         updatedAt
         userPostsId
@@ -171,7 +208,12 @@ export const getComment = /* GraphQL */ `
       author {
         id
         username
+        fullname
         email
+        title
+        friendsCount
+        followersCount
+        profilePicture
         posts {
           nextToken
           __typename
@@ -206,6 +248,9 @@ export const listComments = /* GraphQL */ `
           id
           content
           code
+          language
+          topicTag
+          likes
           createdAt
           updatedAt
           userPostsId
@@ -214,7 +259,12 @@ export const listComments = /* GraphQL */ `
         author {
           id
           username
+          fullname
           email
+          title
+          friendsCount
+          followersCount
+          profilePicture
           createdAt
           updatedAt
           __typename

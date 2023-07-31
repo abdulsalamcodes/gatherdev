@@ -1,40 +1,40 @@
 import { useMainContext } from "@/appContext";
 import React from "react";
+import { AiOutlineUser } from "react-icons/ai";
 import { FaUserEdit, FaUserPlus } from "react-icons/fa";
 
 type Props = {};
 
 const ProfileSidebar = (props: Props) => {
   const { store } = useMainContext();
-  const userProfile = {
-    username: "JohnDoe",
-    fullName: "John Doe",
-    bio: "Frontend Developer | JavaScript Enthusiast",
-    profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
-    friendsCount: 123,
-    followersCount: 456,
-    postsCount: 789,
-  };
+  const user = store.auth.currentUser;
 
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
       <div className="flex items-center space-x-4 mb-4">
         {/* User Avatar */}
-        <img
-          src={userProfile.profilePicture}
-          alt={userProfile.fullName}
-          className="w-16 h-16 rounded-full mr-4"
-        />
+        {user?.profilePicture ? (
+          <img
+            src={user?.profilePicture}
+            alt={user?.fullname}
+            className="w-16 h-16 rounded-full mr-4"
+          />
+        ) : (
+          <AiOutlineUser 
+            className="w-16 h-16 rounded-full mr-4 bg-gray-300"
+
+           />
+        )}
 
         {/* User Details */}
         <div>
-          <h2 className="text-xl font-bold">{userProfile.fullName}</h2>
-          <p className="text-gray-500">@{userProfile.username}</p>
+          <h2 className="text-xl font-bold">{user?.fullname}</h2>
+          <p className="text-gray-500">@{user?.username}</p>
         </div>
       </div>
 
       {/* User Bio */}
-      <p className="text-gray-600 mb-6">{userProfile.bio}</p>
+      <p className="text-gray-600 mb-6">{user?.title}</p>
 
       {/* User Actions */}
       <div className="flex space-x-2 mb-4 flex-wrap gap-2">
@@ -50,13 +50,23 @@ const ProfileSidebar = (props: Props) => {
       {/* User Stats */}
       <div className="flex justify-around text-gray-500 text-sm mb-4">
         <div>
-          <span className="font-bold text-black dark:text-white">{userProfile.postsCount}</span> Posts
+          <span className="font-bold text-black dark:text-white">
+            {/* @ts-ignore */}
+            {user?.posts?.items?.length}
+          </span>{" "}
+          Posts
         </div>
         <div>
-          <span className="font-bold text-black dark:text-white">{userProfile.friendsCount}</span> Friends
+          <span className="font-bold text-black dark:text-white">
+            {user?.friendsCount || 0}
+          </span>{" "}
+          Friends
         </div>
         <div>
-          <span className="font-bold text-black dark:text-white">{userProfile.followersCount}</span> Followers
+          <span className="font-bold text-black dark:text-white">
+            {user?.followersCount || 0}
+          </span>{" "}
+          Followers
         </div>
       </div>
     </div>

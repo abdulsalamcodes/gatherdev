@@ -1,11 +1,13 @@
+import { IUser } from "@/stores/AuthStore";
 import { IComment } from "./comment";
 
-export type IPost = {
-  __typename: "Post",
-  id: string,
-  content: string,
-  author: string,
-  comments?: IComment[] | null,
-  createdAt: string,
-  updatedAt: string,
-};
+export interface IPost {
+  id: string;
+  content: string;
+  code: string;
+  language: string;
+  topicTag: string;
+  author: IUser;
+  comments?: IComment[];
+  likes?: number;
+}
