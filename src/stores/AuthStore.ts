@@ -7,7 +7,8 @@ import { API } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { makeObservable, observable, action } from "mobx";
-import { getPersistedStore, makePersistable } from "mobx-persist-store";
+import { makePersistable } from "mobx-persist-store";
+import 'fake-indexeddb/auto';
 import localforage from "localforage";
 
 export interface IUser {
