@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useMainContext } from "@/appContext";
 import { observer } from "mobx-react";
 import { AuthStore } from "@/stores/AuthStore";
+import ProfileSidebar from "@/components/ProfilePage/ProfileSidebar";
 
 const SettingsPage = () => {
  
@@ -26,6 +27,7 @@ const SettingsPage = () => {
         <div className="grid grid-cols-4 gap-8">
           <aside className="col-span-1">
             {/* Left Sidebar */}
+            <ProfileSidebar />
             {/* Add your left sidebar content here */}
           </aside>
           <div className="col-span-3">

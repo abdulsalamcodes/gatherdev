@@ -4,7 +4,6 @@ import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 
 const RightSidebar = () => {
- 
   useEffect(() => {
     AuthStore.loadAllUsers();
   }, []);
@@ -30,7 +29,7 @@ const RightSidebar = () => {
   ];
 
   return (
-    <aside className="w-full px-4 sticky top-20">
+    <aside className="w-full px-4 sticky top-20 max-h-screen overflow-y-auto pb-12">
       {/* Recommended Users */}
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
         <h2 className="text-gray-800 dark:text-white text-lg font-bold mb-4">
@@ -69,13 +68,16 @@ const RightSidebar = () => {
           Sponsored Content
         </h2>
         <p className="text-gray-800 dark:text-white">
-          Discover More about Codespere! Unleash your coding potential with us.
-          Join our exclusive live webinar at <a
-                href={'https://joinentre.com'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-              >joinentre.com</a>
+          <a
+            href={"https://joinentre.com"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline mr-1"
+          >
+            Joinentre.com: 
+          </a>
+          Empowering Entrepreneurs and Developers. Build communities and
+          accelerate your tech career with our cutting-edge platform. Join now!
         </p>
       </div>
 

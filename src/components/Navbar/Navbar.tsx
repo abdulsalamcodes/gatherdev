@@ -30,9 +30,9 @@ function Navbar({}: Props) {
     <header className="py-5 bg-gray-900 sticky top-0 z-50">
       <nav className="flex justify-between items-center max-w-screen-xl px-4 md:px-8 m-auto">
         <div className="text-white text-xl font-bold">
-          <Link href={AuthStore.isLoggedIn() ? "/home" : "/"}>Codesphere</Link>
+          <Link href={AuthStore.currentUser ? "/home" : "/"}>Codesphere</Link>
         </div>
-        {AuthStore.isLoggedIn() ? (
+        {AuthStore?.currentUser ? (
           <div className="flex items-center gap-5">
             {/* Global Search Input Field */}
             <input

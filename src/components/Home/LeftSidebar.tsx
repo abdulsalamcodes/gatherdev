@@ -63,11 +63,11 @@ const LeftSidebar = () => {
               Settings
             </a>
           </li>
-          <li className="mb-2">
+          {/* <li className="mb-2">
             <a href="/notifications" className="text-blue-500 hover:underline">
               Notifications
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
 
@@ -78,18 +78,18 @@ const LeftSidebar = () => {
         </h2>
         <ul className="text-gray-800 dark:text-white">
           <li className="mb-2">
-            <a href="/topic1" className="text-green-500 hover:underline">
-              #Topic1
+            <a href="#" className="text-green-500 hover:underline">
+              #javascript
             </a>
           </li>
           <li className="mb-2">
-            <a href="/topic2" className="text-green-500 hover:underline">
-              #Topic2
+            <a href="#" className="text-green-500 hover:underline">
+              #python
             </a>
           </li>
           <li className="mb-2">
-            <a href="/topic3" className="text-green-500 hover:underline">
-              #Topic3
+            <a href="#" className="text-green-500 hover:underline">
+              #best-practices
             </a>
           </li>
         </ul>
