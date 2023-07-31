@@ -1,5 +1,4 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import Post from "@/models/postModel";
 import { IPost } from "@/types/post";
 import AppStore from "./app";
 

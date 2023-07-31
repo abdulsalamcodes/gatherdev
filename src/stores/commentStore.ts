@@ -1,4 +1,3 @@
-import Comment from "@/models/commentModel";
 import { ObservableMap, action, computed, makeObservable } from "mobx";
 import AppStore from "./app";
 import { IComment } from "@/types/comment";
