@@ -1,14 +1,16 @@
 import { useMainContext } from "@/appContext";
-import { AuthStore } from "@/stores/AuthStore";
+import { AuthStore, IUser } from "@/stores/AuthStore";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaTools, FaUserEdit, FaUserPlus } from "react-icons/fa";
 
-type Props = {};
+type Props = {
+  user?: IUser;
+};
 
 const ProfileSidebar = (props: Props) => {
-   const user = AuthStore.currentUser;
+  const { user } = props;
 
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">

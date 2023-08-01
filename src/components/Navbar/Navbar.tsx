@@ -43,13 +43,13 @@ function Navbar({}: Props) {
             <ul className="flex items-center justify-center gap-5">
               {/* Profile Button or Avatar */}
               <li>
-                <button
+                <Link
                   className={`hover:text-white ${isActive("/profile")}`}
-                  onClick={() => console.log("Profile clicked")}
+                  href="/profile"
                 >
                   {/* Replace the text with your profile button or avatar */}
                   Profile
-                </button>
+                </Link>
               </li>
               <li>
                 <button

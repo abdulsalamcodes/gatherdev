@@ -9,11 +9,51 @@ import awsconfig from "../../aws-exports";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import AuthStore from "@/stores/AuthStore";
-import { useMainContext } from "@/appContext";
-import { createUserInAppSync } from "@/utils";
 
-Amplify.configure(awsconfig);
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: true,
+    region: "us-east-2", // Replace with process.env.NEXT_PUBLIC_REGION
+    userPoolId: "us-east-2_bBZvwUxqo", // Replace with process.env.NEXT_PUBLIC_USER_POOL_ID
+    userPoolWebClientId: "7feods9m242qjnvrsp6healo68", // Replace with process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID
+    cookieStorage: {
+      domain: "localhost",
+      secure: false, // Set to true if using https
+      path: "/",
+      sameSite: "strict",
+      expires: 365, // Cookie expiry in days
+    },
+  },
+  aws_appsync_graphqlEndpoint:
+    "https://pjknaqntavd5tf3jfwobwlw72m.appsync-api.us-east-2.amazonaws.com/graphql",
+  aws_appsync_region: "us-east-2",
+  aws_appsync_authenticationType: "API_KEY",
+  aws_appsync_apiKey: "da2-pcgrdhfpsjg5himhp6mc3vueqe",
+  oauth: {
+    domain: "codespheredc73fdcb-dc73fdcb-dev.auth.us-east-2.amazoncognito.com",
+    scope: [
+      "phone",
+      "email",
+      "openid",
+      "profile",
+      "aws.cognito.signin.user.admin",
+    ],
+    redirectSignIn: "http://localhost:3000/",
+    redirectSignOut: "http://localhost:3000/",
+    responseType: "code",
+  },
+  federationTarget: "COGNITO_USER_POOLS",
+  aws_cognito_username_attributes: [],
+  aws_cognito_social_providers: [],
+  aws_cognito_signup_attributes: ["EMAIL"],
+  aws_cognito_mfa_configuration: "OFF",
+  aws_cognito_mfa_types: ["SMS"],
+  aws_cognito_password_protection_settings: {
+    passwordPolicyMinLength: 8,
+    passwordPolicyCharacters: [],
+  },
+  aws_cognito_verification_mechanisms: ["EMAIL"],
+});
 
 type LoginParameters = {
   username: string;
@@ -36,7 +76,7 @@ const Login = () => {
   const { tokens } = useTheme();
   const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
- 
+
   const css = `
   .custom-card-class {
     background-color: #1e1e1e;
@@ -52,6 +92,7 @@ const Login = () => {
     try {
       setReqLoading(true);
       const user = await Auth.signIn(username, password);
+      Auth.rememberDevice();
       if (user) {
         if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
           const { requiredAttributes } = user.challengeParam; // the array of required attributes, e.g ['email', 'phone_number']
@@ -63,6 +104,7 @@ const Login = () => {
           );
           console.log(loggedInUser);
         }
+        console.log("[LOGININ USER]", user);
 
         localStorage.setItem(
           "currentUserId",
@@ -94,8 +136,8 @@ const Login = () => {
 
   return (
     <FormikProvider value={formik}>
-      <div className="flex flex-col items-center p-20 justify-center bg-gray-black">
-        <form className="w-1/3" onSubmit={formik.handleSubmit}>
+      <div className="flex flex-col items-center p-5 justify-center bg-gray-black">
+        <form className="w-full max-w-md" onSubmit={formik.handleSubmit}>
           <header className="">
             <h1 className="mb-5 text-center text-xl">Access your account </h1>
           </header>
@@ -142,7 +184,7 @@ const Login = () => {
               className="text-white text-center text-sm  underline w-full hover:text-gray-100 pt-4 px-4"
               type="button"
             >
-              You can create an account by clicking here.
+              Create an account
             </Link>
           </Card>
         </form>

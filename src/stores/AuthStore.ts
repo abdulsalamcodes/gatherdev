@@ -8,7 +8,7 @@ import { API } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { makeObservable, observable, action } from "mobx";
-import { makePersistable } from "mobx-persist-store";
+import { clearPersistedStore, makePersistable } from "mobx-persist-store";
 // import localforage from "localforage";
 
 
@@ -29,13 +29,16 @@ export interface IUser {
 class AuthStoreClass {
   public currentUser: IUser | null;
   public allUsers: IUser[] | [];
+  public profileUser: IUser | null;
 
   constructor() {
     this.currentUser = null;
+    this.profileUser = null;
     this.allUsers = [];
 
     makeObservable(this, {
       currentUser: observable,
+      profileUser: observable,
       allUsers: observable,
       loadCurrentUser: action,
       loadAllUsers: action,
@@ -84,8 +87,35 @@ class AuthStoreClass {
     }
   }
 
+  async loadUserByUsername(username: string) {
+    try {
+      // @ts-ignore
+      const { data } = await API.graphql({
+        query: queries.listUsers,
+        variables: {
+          limit: 1, // Fetch only one user
+          filter: {
+            username: {
+              eq: username // Filter by the provided username
+            }
+          }
+        },
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      });
+  
+      console.log("User data", data.listUsers.items[0]); // Access the first user from the list
+      // Do something with the user data
+      this.profileUser = data.listUsers.items[0];
+    } catch (error) {
+      console.log("Error fetching user by username in AppSync:", error);
+    }
+  }
+  
+  
+
   logout(): void {
     this.currentUser = null;
+    clearPersistedStore(this)
     clearCurrentUserFromLocalStorage();
   }
 

@@ -1,4 +1,3 @@
-import { useMainContext } from "@/appContext";
 import { AuthStore } from "@/stores/AuthStore";
 import { observer } from "mobx-react";
 import React from "react";
@@ -23,7 +22,7 @@ const LeftSidebar = () => {
               {AuthStore.currentUser?.fullname || "Anonymous"}
             </span>
             <p className="text-gray-500 dark:text-gray-300">
-              {AuthStore.currentUser?.username || "loading..."}
+              {AuthStore.currentUser?.username}
             </p>
           </div>
         </div>

@@ -1,35 +1,38 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Link from "next/link";
-import { useMainContext } from "@/appContext";
 import PostCard from "@/components/Home/PostCard";
 import ProfileSidebar from "./ProfileSidebar";
 import { observer } from "mobx-react";
 import { IPost } from "@/types/post";
-import { AuthStore } from "@/stores/AuthStore";
+import { AuthStore, IUser } from "@/stores/AuthStore";
 
-const ProfilePage = () => {
+const ProfilePage = ({ username }: { username?: string }) => {
+  const user = username ? AuthStore.profileUser : AuthStore.currentUser as IUser;
+
+  useEffect(() => {
+    if (username) {
+      console.log("Loading user by username", username);
+      AuthStore.loadUserByUsername(username);
+    }
+  }, []);
+
   return (
     <div className="bg-background text-text min-h-screen dark:text-white">
       <main className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
         <div className="grid grid-cols-4 gap-8">
           <aside className="col-span-1">
             {/* Left Sidebar */}
-            <ProfileSidebar />
+            <ProfileSidebar user={user!} />
             {/* Add your left sidebar content here */}
           </aside>
           <div className="col-span-3">
             {/* Main Content Area */}
-            {AuthStore.currentUser ? (
+            {user ? (
               <section>
                 <div className="mb-4">
-                  <h1 className="text-3xl font-bold">
-                    {AuthStore.currentUser.fullname}
-                  </h1>
-                  <p className="text-gray-500">
-                    @{AuthStore.currentUser.username}
-                  </p>
+                  <h1 className="text-3xl font-bold">{user.fullname}</h1>
+                  <p className="text-gray-500">@{user.username}</p>
                 </div>
 
                 {/* User Info */}
@@ -37,11 +40,11 @@ const ProfilePage = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-gray-500">Email</p>
-                      <p>{AuthStore.currentUser.email}</p>
+                      <p>{user.email}</p>
                     </div>
                     <div>
                       <p className="text-gray-500">Title</p>
-                      <p>{AuthStore.currentUser.title}</p>
+                      <p>{user.title}</p>
                     </div>
                   </div>
                 </div>
@@ -50,12 +53,12 @@ const ProfilePage = () => {
                 <div className="mb-8">
                   <h2 className="text-2xl font-bold mb-4">User Posts</h2>
                   {/* @ts-ignore */}
-                  {AuthStore.currentUser.posts?.items.length > 0 ? (
+                  {user.posts?.items?.length > 0 ? (
                     <div className="flex flex-col gap-5">
                       {/* @ts-ignore */}
-                      {AuthStore.currentUser.posts?.items.map((post: IPost) => (
+                      {user.posts?.items?.map((post: IPost) => (
                         <div key={post.id}>
-                          <PostCard post={post} />
+                          <PostCard post={post} user={user} />
                         </div>
                       ))}
                     </div>

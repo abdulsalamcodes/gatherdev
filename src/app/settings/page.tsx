@@ -5,6 +5,7 @@ import { useMainContext } from "@/appContext";
 import { observer } from "mobx-react";
 import { AuthStore } from "@/stores/AuthStore";
 import ProfileSidebar from "@/components/ProfilePage/ProfileSidebar";
+import CButton from "@/components/AtomicComponents/CButton";
 
 const SettingsPage = () => {
  
@@ -87,12 +88,7 @@ const SettingsPage = () => {
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
-                <button
-                  className="bg-accent-primary hover:bg-accent-secondary text-white px-4 py-2 rounded-md"
-                  onClick={handleSaveChanges}
-                >
-                  Save Changes
-                </button>
+                <CButton label="Save Changes" onClick={handleSaveChanges} />
               </div>
             </section>
           </div>
