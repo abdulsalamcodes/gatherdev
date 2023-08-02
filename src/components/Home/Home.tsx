@@ -22,7 +22,7 @@ Amplify.configure(awsconfig);
 
 const PostPage = () => {
   const [posting, setPosting] = useState(false);
-  const { currentUser, loadCurrentUser } = AuthStore;
+  const { currentUser } = AuthStore;
   const router = useRouter();
   const logUserOut = () => {
     AuthStore.logout();
@@ -77,7 +77,7 @@ const PostPage = () => {
       localStorage.getItem("currentUserId") || "null"
     );
     if (currentUserId) {
-      loadCurrentUser(currentUserId);
+      AuthStore.loadCurrentUser(currentUserId);
     }
   }, []);
 

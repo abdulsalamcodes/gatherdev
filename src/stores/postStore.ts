@@ -51,11 +51,6 @@ class PostStoreClass {
         toastId: "fetchPostsError",
       });
 
-      // Handle authentication error
-      if (error === "The user is not authenticated") {
-        AuthStore.logout();
-      }
-
       // Return error for further handling
       return error;
     } finally {

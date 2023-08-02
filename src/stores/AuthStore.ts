@@ -48,7 +48,7 @@ class AuthStoreClass {
 
     makePersistable(this, {
       name: "AuthStore",
-      properties: ["currentUser", "allUsers"],
+      properties: ["currentUser"],
       storage: returnLocalStorage(),
     });
   }

@@ -8,12 +8,14 @@ import { IPost } from "@/types/post";
 import { AuthStore, IUser } from "@/stores/AuthStore";
 
 const ProfilePage = ({ username }: { username?: string }) => {
-  const user = username ? AuthStore.profileUser : AuthStore.currentUser as IUser;
+  const { profileUser, currentUser, loadUserByUsername } = AuthStore;
+
+  const user = username ? profileUser : (currentUser as IUser);
 
   useEffect(() => {
     if (username) {
       console.log("Loading user by username", username);
-      AuthStore.loadUserByUsername(username);
+      loadUserByUsername(username);
     }
   }, []);
 
