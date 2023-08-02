@@ -31,8 +31,8 @@ const RightSidebar = () => {
   return (
     <aside className="w-full px-4 sticky top-20 max-h-screen overflow-y-auto pb-12">
       {/* Recommended Users */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-gray-800 dark:text-white text-lg font-bold mb-4">
+      <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+        <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
           Recommended Users
         </h2>
         <ul>
@@ -49,11 +49,11 @@ const RightSidebar = () => {
               <div>
                 <a
                   href={`/users/${user.username}`}
-                  className="text-gray-800 dark:text-white"
+                  className="text-gray-800  text-white"
                 >
                   {user.fullname}
                 </a>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                <p className="text-gray-500  text-gray-400 text-sm">
                   {user.title}
                 </p>
               </div>
@@ -63,11 +63,11 @@ const RightSidebar = () => {
       </div>
 
       {/* Sponsored Content */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-gray-800 dark:text-white text-lg font-bold mb-4">
+      <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+        <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
           Sponsored Content
         </h2>
-        <p className="text-gray-800 dark:text-white">
+        <p className="text-gray-800  text-white">
           <a
             href={"https://joinentre.com"}
             target="_blank"
@@ -82,8 +82,8 @@ const RightSidebar = () => {
       </div>
 
       {/* Developer Tools/Resources */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-gray-800 dark:text-white text-lg font-bold mb-4">
+      <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+        <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
           Developer Tools/Resources
         </h2>
         <ul>
@@ -95,10 +95,10 @@ const RightSidebar = () => {
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
               >
-                <h3 className="text-gray-800 dark:text-white font-bold mb-1">
+                <h3 className="text-gray-800  text-white font-bold mb-1">
                   {tool.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-600  text-gray-300">
                   {tool.description}
                 </p>
               </a>

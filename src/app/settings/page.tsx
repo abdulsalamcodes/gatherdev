@@ -23,7 +23,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="bg-background text-text min-h-screen dark:text-white">
+    <div className="bg-background text-text min-h-screen  text-white">
       <main className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
         <div className="grid grid-cols-4 gap-8">
           <aside className="col-span-1">
@@ -35,8 +35,8 @@ const SettingsPage = () => {
             {/* Main Content Area */}
             <section>
               <h1 className="text-3xl font-bold mb-4">Settings</h1>
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-                <h2 className="text-gray-800 dark:text-white text-lg font-bold mb-4">
+              <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+                <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
                   General
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
@@ -56,8 +56,8 @@ const SettingsPage = () => {
                   {/* Add other general settings here */}
                 </div>
               </div>
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-                <h2 className="text-gray-800 dark:text-white text-lg font-bold mb-4">
+              <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+                <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
                   Account
                 </h2>
                 <div className="mb-4">

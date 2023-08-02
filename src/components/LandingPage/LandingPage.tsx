@@ -18,7 +18,7 @@ export default function LandingPage({}: Props) {
             <Link href="/signup" className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 ease-in-out">
               Sign Up
             </Link>
-            <Link href="/login" className="border border-white hover:bg-white hover:text-blue-500 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 ease-in-out">
+            <Link href="/login" className="border border-white hover:  hover:text-blue-500 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 ease-in-out">
               Login
             </Link>
           </div>

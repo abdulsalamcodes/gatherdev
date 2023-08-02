@@ -20,7 +20,7 @@ const ProfilePage = ({ username }: { username?: string }) => {
   }, []);
 
   return (
-    <div className="bg-background text-text min-h-screen dark:text-white">
+    <div className="bg-background text-text min-h-screen  text-white">
       <main className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
         <div className="grid grid-cols-4 gap-8">
           <aside className="col-span-1">
@@ -38,7 +38,7 @@ const ProfilePage = ({ username }: { username?: string }) => {
                 </div>
 
                 {/* User Info */}
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+                <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-gray-500">Email</p>

@@ -13,7 +13,7 @@ const ProfileSidebar = (props: Props) => {
   const { user } = props;
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+    <div className="   bg-gray-800 p-4 rounded-lg shadow-md">
       <div className="flex items-center space-x-4 mb-4">
         {/* User Avatar */}
         {user?.profilePicture ? (
@@ -53,20 +53,20 @@ const ProfileSidebar = (props: Props) => {
       {/* User Stats */}
       <div className="flex justify-around text-gray-500 text-sm mb-4">
         <div>
-          <span className="font-bold text-black dark:text-white">
+          <span className="font-bold text-black  text-white">
             {/* @ts-ignore */}
             {user?.posts?.items?.length}
           </span>{" "}
           Posts
         </div>
         <div>
-          <span className="font-bold text-black dark:text-white">
+          <span className="font-bold text-black  text-white">
             {user?.friendsCount || 0}
           </span>{" "}
           Friends
         </div>
         <div>
-          <span className="font-bold text-black dark:text-white">
+          <span className="font-bold text-black  text-white">
             {user?.followersCount || 0}
           </span>{" "}
           Followers

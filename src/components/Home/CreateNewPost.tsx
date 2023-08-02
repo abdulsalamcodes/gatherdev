@@ -58,18 +58,18 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white dark:bg-gray-800 w-full sm:w-1/3 p-8 rounded-lg shadow-md">
+          <div className="   bg-gray-800 w-full sm:w-1/3 p-8 rounded-lg shadow-md">
             {/* Input for Language */}
             <div className="mb-4">
               <label
                 htmlFor="language"
-                className="block text-gray-700 dark:text-white mb-2"
+                className="block text-gray-700  text-white mb-2"
               >
                 Language:
               </label>
               <select
                 id="language"
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-accent-primary"
+                className="w-full p-2 border border-gray-300  border-gray-600 rounded mb-2    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
                 value={language}
                 onChange={handleLanguageChange}
               >
@@ -84,7 +84,7 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
             <div className="mb-4">
               <label
                 htmlFor="tag"
-                className="block text-gray-700 dark:text-white mb-2"
+                className="block text-gray-700  text-white mb-2"
               >
                 Tag:
               </label>
@@ -92,7 +92,7 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
                 type="text"
                 id="tag"
                 value={topicTag}
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-accent-primary"
+                className="w-full p-2 border border-gray-300  border-gray-600 rounded mb-2    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
                 placeholder="Add tag (e.g., react, next.js, motivation, etc.)"
                 onChange={handleTagsChange}
               />
@@ -102,7 +102,7 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
             <div className="mb-4">
               <label
                 htmlFor="code-editor"
-                className="block text-gray-700 dark:text-white mb-2"
+                className="block text-gray-700  text-white mb-2"
               >
                 Enter your code:
               </label>
@@ -125,7 +125,7 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
 
             {/* Textarea for Content */}
             <textarea
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-4 resize-none bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-accent-primary"
+              className="w-full p-2 border border-gray-300  border-gray-600 rounded mb-4 resize-none    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
               placeholder="Join the coding conversation 🚀"
               value={content}
               onChange={(e) => setContent(e.target.value)}
