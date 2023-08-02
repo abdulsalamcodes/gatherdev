@@ -10,7 +10,7 @@ import {
 
 const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
   return (
-    <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-5">
+    <div className="bg-gray-800 p-4 rounded-lg shadow-md mb-5">
       {/* Author Details */}
       <div className="flex items-center mb-2">
         <img
@@ -24,18 +24,16 @@ const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
         <div>
           <Link
             href={`/profile/${post.author?.username}`}
-            className="text-gray-500  text-gray-300 text-sm font-semibold"
+            className="  text-gray-300 text-sm font-semibold"
           >
             {user?.username}
           </Link>
-          <p className="text-gray-500  text-gray-300 text-sm">
-            {user?.title}
-          </p>
+          <p className="  text-gray-300 text-sm">{user?.title}</p>
         </div>
       </div>
 
       {/* Text-based Content */}
-      <p className="text-gray-800  text-white mb-4">{post.content}</p>
+      <p className="  text-white mb-4">{post.content}</p>
 
       {/* Code Section */}
       <div className="overflow-auto bg-gray-900 text-white rounded-lg mb-4">
@@ -59,15 +57,15 @@ const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
 
       {/* Action Buttons */}
       <div className="flex justify-between">
-        <button className="text-gray-500  text-gray-300 flex items-center space-x-2">
+        <button className="  text-gray-300 flex items-center space-x-2">
           <AiOutlineHeart className="h-5 w-5" />
           <span>Like</span>
         </button>
-        <button className="text-gray-500  text-gray-300 flex items-center space-x-2">
+        <button className="  text-gray-300 flex items-center space-x-2">
           <AiOutlineComment className="h-5 w-5" />
           <span>Comment</span>
         </button>
-        <button className="text-gray-500  text-gray-300 flex items-center space-x-2">
+        <button className="  text-gray-300 flex items-center space-x-2">
           <AiOutlineBook className="h-5 w-5" />
           <span>Bookmark</span>
         </button>

@@ -6,20 +6,17 @@ import { observer } from "mobx-react";
 import { AuthStore } from "@/stores/AuthStore";
 import ProfileSidebar from "@/components/ProfilePage/ProfileSidebar";
 import CButton from "@/components/AtomicComponents/CButton";
+import { toast } from "react-toastify";
 
 const SettingsPage = () => {
- 
-  const [fullname, setFullname] = useState(AuthStore.currentUser?.fullname || "");
+  const [fullname, setFullname] = useState(
+    AuthStore.currentUser?.fullname || ""
+  );
   const [title, setTitle] = useState(AuthStore.currentUser?.title || "");
-
-  // const handleDarkModeToggle = () => {
-  //   store.app.toggleDarkMode();
-  // };
 
   const handleSaveChanges = () => {
     // Update the user's fullname and title
-    const updatedUser = { ...AuthStore.currentUser, fullname, title };
-    AuthStore.loadCurrentUser(updatedUser.id);
+    AuthStore.updateUser(fullname, title);
   };
 
   return (
@@ -28,7 +25,7 @@ const SettingsPage = () => {
         <div className="grid grid-cols-4 gap-8">
           <aside className="col-span-1">
             {/* Left Sidebar */}
-            <ProfileSidebar />
+            <ProfileSidebar user={AuthStore.currentUser} />
             {/* Add your left sidebar content here */}
           </aside>
           <div className="col-span-3">
@@ -88,7 +85,11 @@ const SettingsPage = () => {
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
-                <CButton label="Save Changes" onClick={handleSaveChanges} />
+                <CButton
+                  label="Save Changes"
+                  isLoading={AuthStore.updatingUser}
+                  onClick={handleSaveChanges}
+                />
               </div>
             </section>
           </div>

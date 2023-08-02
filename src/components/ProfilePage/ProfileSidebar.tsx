@@ -1,12 +1,13 @@
 import { useMainContext } from "@/appContext";
 import { AuthStore, IUser } from "@/stores/AuthStore";
+import { observer } from "mobx-react";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaTools, FaUserEdit, FaUserPlus } from "react-icons/fa";
 
 type Props = {
-  user?: IUser;
+  user: IUser | null;
 };
 
 const ProfileSidebar = (props: Props) => {
@@ -76,4 +77,4 @@ const ProfileSidebar = (props: Props) => {
   );
 };
 
-export default ProfileSidebar;
+export default observer(ProfileSidebar);

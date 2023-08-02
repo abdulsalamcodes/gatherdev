@@ -5,6 +5,7 @@ import {
   clearCurrentUserFromLocalStorage, returnLocalStorage,
 } from "@/utils";
 import { API } from "aws-amplify";
+import * as mutations from "../graphql/mutations";
 import * as queries from "../graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { makeObservable, observable, action } from "mobx";
@@ -30,16 +31,19 @@ class AuthStoreClass {
   public currentUser: IUser | null;
   public allUsers: IUser[] | [];
   public profileUser: IUser | null;
+  public updatingUser: boolean;
 
   constructor() {
     this.currentUser = null;
     this.profileUser = null;
     this.allUsers = [];
+    this.updatingUser = false;
 
     makeObservable(this, {
       currentUser: observable,
       profileUser: observable,
       allUsers: observable,
+      updatingUser: observable,
       loadCurrentUser: action,
       loadAllUsers: action,
       logout: action,
@@ -52,6 +56,7 @@ class AuthStoreClass {
       storage: returnLocalStorage(),
     });
   }
+
 
   async loadCurrentUser(userId?: string) {
     try {
@@ -109,6 +114,31 @@ class AuthStoreClass {
     } catch (error) {
       console.log("Error fetching user by username in AppSync:", error);
     }
+  }
+  async updateUser(fullname: string, title: string) {
+    try {
+      this.updatingUser = true;
+      // @ts-ignore
+      const { data } = await API.graphql({
+        query: mutations.updateUser,
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+        variables: {
+          inputs: {
+            id: this.currentUser?.id,
+            fullname: fullname,
+            title: title,
+          }
+        },
+      });
+  
+      console.log("UpdatedUser", data?.updatedUser)
+      // Do something with the user data
+      this.currentUser = data.updateUser;
+      return data.updateUser;
+    } catch (error) {
+      console.log("Error fetching user by username in AppSync:", error);
+      return error;
+    } 
   }
   
   

@@ -32,7 +32,7 @@ const RightSidebar = () => {
     <aside className="w-full px-4 sticky top-20 max-h-screen overflow-y-auto pb-12">
       {/* Recommended Users */}
       <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
+        <h2 className=" text-white text-lg font-bold mb-4">
           Recommended Users
         </h2>
         <ul>
@@ -47,15 +47,10 @@ const RightSidebar = () => {
                 className="w-8 h-8 rounded-full mr-2"
               />
               <div>
-                <a
-                  href={`/users/${user.username}`}
-                  className="text-gray-800  text-white"
-                >
+                <a href={`/users/${user.username}`} className="  text-white">
                   {user.fullname}
                 </a>
-                <p className="text-gray-500  text-gray-400 text-sm">
-                  {user.title}
-                </p>
+                <p className="  text-gray-400 text-sm">{user.title}</p>
               </div>
             </li>
           ))}
@@ -64,17 +59,17 @@ const RightSidebar = () => {
 
       {/* Sponsored Content */}
       <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
+        <h2 className="  text-white text-lg font-bold mb-4">
           Sponsored Content
         </h2>
-        <p className="text-gray-800  text-white">
+        <p className="  text-white">
           <a
             href={"https://joinentre.com"}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline mr-1"
           >
-            Joinentre.com: 
+            Joinentre.com:
           </a>
           Empowering Entrepreneurs and Developers. Build communities and
           accelerate your tech career with our cutting-edge platform. Join now!
@@ -83,7 +78,7 @@ const RightSidebar = () => {
 
       {/* Developer Tools/Resources */}
       <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
+        <h2 className="  text-white text-lg font-bold mb-4">
           Developer Tools/Resources
         </h2>
         <ul>
@@ -95,12 +90,8 @@ const RightSidebar = () => {
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
               >
-                <h3 className="text-gray-800  text-white font-bold mb-1">
-                  {tool.title}
-                </h3>
-                <p className="text-gray-600  text-gray-300">
-                  {tool.description}
-                </p>
+                <h3 className="  text-white font-bold mb-1">{tool.title}</h3>
+                <p className="  text-gray-300">{tool.description}</p>
               </a>
             </li>
           ))}
