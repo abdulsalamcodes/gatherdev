@@ -7,14 +7,14 @@ import { observer } from "mobx-react";
 import { useRouter } from "next/navigation";
 import { useMainContext } from "@/appContext";
 import { AuthStore } from "@/stores/AuthStore";
-
+import { FaSearch, FaUser, FaSignOutAlt } from "react-icons/fa";
 
 type Props = {};
 
 function Navbar({}: Props) {
   const pathname = usePathname();
   const router = useRouter();
- 
+
   const isActive = (href: string) => {
     return pathname === href
       ? "text-white border-b-2 border-blue-500"
@@ -44,18 +44,23 @@ function Navbar({}: Props) {
               {/* Profile Button or Avatar */}
               <li>
                 <Link
-                  className={`hover:text-white ${isActive("/profile")}`}
+                  className={`flex items-center hover:text-white ${isActive(
+                    "/profile"
+                  )}`}
                   href="/profile"
                 >
-                  {/* Replace the text with your profile button or avatar */}
+                  <FaUser className="h-5 w-5 mr-1" />
                   Profile
                 </Link>
               </li>
               <li>
                 <button
                   onClick={handleLogout}
-                  className={`hover:text-white ${isActive("/login")}`}
+                  className={`flex items-center hover:text-white ${isActive(
+                    "/login"
+                  )}`}
                 >
+                  <FaSignOutAlt className="h-5 w-5 mr-1" />
                   Logout
                 </button>
               </li>

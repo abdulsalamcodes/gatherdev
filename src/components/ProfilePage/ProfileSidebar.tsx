@@ -2,6 +2,7 @@ import { useMainContext } from "@/appContext";
 import { AuthStore, IUser } from "@/stores/AuthStore";
 import { observer } from "mobx-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaTools, FaUserEdit, FaUserPlus } from "react-icons/fa";
@@ -12,6 +13,8 @@ type Props = {
 
 const ProfileSidebar = (props: Props) => {
   const { user } = props;
+  const pathname = usePathname();
+  console.log("ProfileSidebar", pathname);
 
   return (
     <div className="   bg-gray-800 p-4 rounded-lg shadow-md">
@@ -24,10 +27,7 @@ const ProfileSidebar = (props: Props) => {
             className="w-16 h-16 rounded-full mr-4"
           />
         ) : (
-          <AiOutlineUser 
-            className="w-16 h-16 rounded-full mr-4 bg-gray-300"
-
-           />
+          <AiOutlineUser className="w-16 h-16 rounded-full mr-4 bg-gray-300" />
         )}
 
         {/* User Details */}
@@ -42,9 +42,14 @@ const ProfileSidebar = (props: Props) => {
 
       {/* User Actions */}
       <div className="flex space-x-2 mb-4 flex-wrap gap-2">
-        <Link className="flex items-center text-sm justify-center bg-accent-primary hover:bg-accent-secondary text-white px-4 py-2 rounded-md flex-grow" href={'/settings'}>
-          <FaTools className="mr-2" /> Settings
-        </Link>
+        {user?.id === AuthStore.currentUser?.id && pathname !== "/settings" && (
+          <Link
+            className="flex items-center text-sm justify-center bg-accent-primary hover:bg-accent-secondary text-white px-4 py-2 rounded-md flex-grow"
+            href={"/settings"}
+          >
+            <FaTools className="mr-2" /> Settings
+          </Link>
+        )}
 
         <button className="flex items-center text-sm justify-center border border-accent-primary text-accent-primary hover:text-accent-secondary px-4 py-2 rounded-md flex-grow">
           <FaUserPlus className="mr-2" /> Follow

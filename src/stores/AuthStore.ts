@@ -1,17 +1,14 @@
-"use client"
+"use client";
 
 import { IPost } from "@/types/post";
-import {
-  clearCurrentUserFromLocalStorage, returnLocalStorage,
-} from "@/utils";
-import { API } from "aws-amplify";
+import { clearCurrentUserFromLocalStorage, returnLocalStorage } from "@/utils";
+import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import * as queries from "../graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { makeObservable, observable, action } from "mobx";
 import { clearPersistedStore, makePersistable } from "mobx-persist-store";
 // import localforage from "localforage";
-
 
 export interface IUser {
   id: string;
@@ -57,7 +54,6 @@ class AuthStoreClass {
     });
   }
 
-
   async loadCurrentUser(userId?: string) {
     try {
       // @ts-ignore
@@ -98,18 +94,16 @@ class AuthStoreClass {
       const { data } = await API.graphql({
         query: queries.listUsers,
         variables: {
-          limit: 1, // Fetch only one user
           filter: {
             username: {
-              eq: username // Filter by the provided username
-            }
-          }
+              eq: username, // Filter by the provided username
+            },
+          },
         },
         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       });
-  
-      console.log("User data", data.listUsers.items[0]); // Access the first user from the list
-      // Do something with the user data
+
+      console.log("User data", data.listUsers.items[0]);
       this.profileUser = data.listUsers.items[0];
     } catch (error) {
       console.log("Error fetching user by username in AppSync:", error);
@@ -118,34 +112,29 @@ class AuthStoreClass {
   async updateUser(fullname: string, title: string) {
     try {
       this.updatingUser = true;
-      // @ts-ignore
-      const { data } = await API.graphql({
-        query: mutations.updateUser,
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-        variables: {
-          inputs: {
-            id: this.currentUser?.id,
-            fullname: fullname,
-            title: title,
-          }
-        },
-      });
-  
-      console.log("UpdatedUser", data?.updatedUser)
+      const input = {
+        fullname: fullname,
+        title: title,
+      };
+
+      const resp = API.graphql(graphqlOperation(mutations.updateUser, input));
+
+      console.log("UpdatedUser", resp);
+    
       // Do something with the user data
-      this.currentUser = data.updateUser;
-      return data.updateUser;
+      // this.currentUser = data.updateUser;
+      // return data.updateUser;
     } catch (error) {
       console.log("Error fetching user by username in AppSync:", error);
       return error;
-    } 
+    } finally {
+      this.updatingUser = false;
+    }
   }
-  
-  
 
   logout(): void {
     this.currentUser = null;
-    clearPersistedStore(this)
+    clearPersistedStore(this);
     clearCurrentUserFromLocalStorage();
   }
 

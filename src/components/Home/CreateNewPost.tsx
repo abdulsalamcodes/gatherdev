@@ -29,7 +29,7 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
       setLanguage("javascript");
       setTopicTag("");
     }
-    setShowModal(false)
+    setShowModal(false);
   };
 
   const handleCodeChange = useCallback((value: string, viewUpdate: any) => {
@@ -57,88 +57,82 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="   bg-gray-800 w-full sm:w-1/3 p-8 rounded-lg shadow-md">
-            {/* Input for Language */}
-            <div className="mb-4">
-              <label
-                htmlFor="language"
-                className="block text-gray-700  text-white mb-2"
-              >
-                Language:
-              </label>
-              <select
-                id="language"
-                className="w-full p-2 border border-gray-300  border-gray-600 rounded mb-2    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
-                value={language}
-                onChange={handleLanguageChange}
-              >
-                <option value="javascript">JavaScript</option>
-                <option value="typescript">TypeScript</option>
-                <option value="python">Python</option>
-                {/* Add more options for other languages */}
-              </select>
-            </div>
+        <>
+          <div className="fixed inset-0 bg-black bg-opacity-50" />
+          <div className="flex items-center justify-center fixed inset-0 ">
+            <div className=" bg-gray-800 w-11/12  sm:w-1/3 p-8 mt-10 rounded-lg shadow-md">
+              {/* Input for Language */}
+              <div className="mb-4">
+                <label htmlFor="language" className="block   text-white mb-2">
+                  Language:
+                </label>
+                <select
+                  id="language"
+                  className="w-full p-2 border  border-gray-600 rounded mb-2    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
+                  value={language}
+                  onChange={handleLanguageChange}
+                >
+                  <option value="javascript">JavaScript</option>
+                  <option value="typescript">TypeScript</option>
+                  <option value="python">Python</option>
+                  {/* Add more options for other languages */}
+                </select>
+              </div>
 
-            {/* Input for Tags */}
-            <div className="mb-4">
-              <label
-                htmlFor="tag"
-                className="block text-gray-700  text-white mb-2"
-              >
-                Tag:
-              </label>
-              <input
-                type="text"
-                id="tag"
-                value={topicTag}
-                className="w-full p-2 border border-gray-300  border-gray-600 rounded mb-2    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
-                placeholder="Add tag (e.g., react, next.js, motivation, etc.)"
-                onChange={handleTagsChange}
+              {/* Input for Tags */}
+              <div className="mb-4">
+                <label htmlFor="tag" className="block  text-white mb-2">
+                  Tag:
+                </label>
+                <input
+                  type="text"
+                  id="tag"
+                  value={topicTag}
+                  className="w-full p-2 border  border-gray-600 rounded mb-2    bg-gray-800 text-white focus:outline-none focus:border-accent-primary"
+                  placeholder="Add tag (e.g., #react, #nextJs, #motivation, etc.)"
+                  onChange={handleTagsChange}
+                />
+              </div>
+
+              {/* Code Editor */}
+              <div className="mb-4">
+                <label htmlFor="code-editor" className="block  text-white mb-2">
+                  Enter your code:
+                </label>
+                <CodeMirror
+                  id="code-editor"
+                  value={code}
+                  height="200px"
+                  extensions={[javascript({ jsx: true, typescript: true })]}
+                  theme={vscodeDarkInit({
+                    settings: {
+                      caret: "#c6c6c6",
+                      fontFamily: "monospace",
+                      gutterBorder: "5px solid",
+                      gutterBackground: "#1e1e1e",
+                    },
+                  })}
+                  onChange={handleCodeChange}
+                />
+              </div>
+
+              {/* Textarea for Content */}
+              <textarea
+                className="w-full p-2 border border-gray-600 rounded mb-4 resize-none    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
+                placeholder="Join the coding conversation 🚀"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+
+              {/* Button */}
+              <CButton
+                onClick={handleSubmit}
+                label="Post"
+                isLoading={isPosting}
               />
             </div>
-
-            {/* Code Editor */}
-            <div className="mb-4">
-              <label
-                htmlFor="code-editor"
-                className="block text-gray-700  text-white mb-2"
-              >
-                Enter your code:
-              </label>
-              <CodeMirror
-                id="code-editor"
-                value={code}
-                height="200px"
-                extensions={[javascript({ jsx: true, typescript: true })]}
-                theme={vscodeDarkInit({
-                  settings: {
-                    caret: "#c6c6c6",
-                    fontFamily: "monospace",
-                    gutterBorder: "5px solid",
-                    gutterBackground: "#1e1e1e",
-                  },
-                })}
-                onChange={handleCodeChange}
-              />
-            </div>
-
-            {/* Textarea for Content */}
-            <textarea
-              className="w-full p-2 border border-gray-300  border-gray-600 rounded mb-4 resize-none    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
-              placeholder="Join the coding conversation 🚀"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-
-            {/* Button */}
-            <CButton
-              onClick={handleSubmit}
-              label="Post"
-              isLoading={isPosting}
-            />
           </div>
-        </div>
+        </>
       )}
     </div>
   );

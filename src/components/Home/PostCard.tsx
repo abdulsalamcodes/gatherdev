@@ -50,7 +50,7 @@ const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
         {/* Topic Tag */}
         {post?.topicTag && (
           <div className="bg-accent-primary text-white rounded-lg">
-            #{post?.topicTag}
+            {post?.topicTag}
           </div>
         )}
       </div>

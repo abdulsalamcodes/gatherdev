@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useState } from "react";
 import { useMainContext } from "@/appContext";
@@ -7,6 +7,10 @@ import { AuthStore } from "@/stores/AuthStore";
 import ProfileSidebar from "@/components/ProfilePage/ProfileSidebar";
 import CButton from "@/components/AtomicComponents/CButton";
 import { toast } from "react-toastify";
+import { Amplify } from "aws-amplify";
+import awsmobile from "@/aws-exports";
+
+Amplify.configure({ ...awsmobile, ssr: true });
 
 const SettingsPage = () => {
   const [fullname, setFullname] = useState(
@@ -20,22 +24,20 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="bg-background text-text min-h-screen  text-white">
+    <div className="bg-background text-text min-h-screen text-white">
       <main className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-        <div className="grid grid-cols-4 gap-8">
-          <aside className="col-span-1">
+        <div className="grid md:grid-cols-12 gap-8">
+          <aside className="md:col-span-3">
             {/* Left Sidebar */}
             <ProfileSidebar user={AuthStore.currentUser} />
             {/* Add your left sidebar content here */}
           </aside>
-          <div className="col-span-3">
+          <div className="md:col-span-9">
             {/* Main Content Area */}
             <section>
               <h1 className="text-3xl font-bold mb-4">Settings</h1>
-              <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-                <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
-                  General
-                </h2>
+              <div className="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+                <h2 className="text-white text-lg font-bold mb-4">General</h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-5">
                     <label htmlFor="darkModeToggle" className="text-gray-600">
@@ -53,10 +55,8 @@ const SettingsPage = () => {
                   {/* Add other general settings here */}
                 </div>
               </div>
-              <div className="   bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-                <h2 className="text-gray-800  text-white text-lg font-bold mb-4">
-                  Account
-                </h2>
+              <div className="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+                <h2 className="text-white text-lg font-bold mb-4">Account</h2>
                 <div className="mb-4">
                   <label htmlFor="fullname" className="text-gray-600">
                     Fullname
@@ -65,8 +65,8 @@ const SettingsPage = () => {
                     type="text"
                     id="fullname"
                     className="mt-1 px-4 py-2 block w-full
-                    outline-none
-                    rounded bg-gray-900 text-white border border-gray-700"
+                      outline-none
+                      rounded bg-gray-900 text-white border border-gray-700"
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
                   />
@@ -79,8 +79,8 @@ const SettingsPage = () => {
                     type="text"
                     id="title"
                     className="mt-1 px-4 py-2 block w-full
-                    outline-none
-                    rounded bg-gray-900 text-white border border-gray-700"
+                      outline-none
+                      rounded bg-gray-900 text-white border border-gray-700"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />

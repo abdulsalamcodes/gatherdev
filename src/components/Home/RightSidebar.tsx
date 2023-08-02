@@ -1,6 +1,7 @@
 import { useMainContext } from "@/appContext";
 import { AuthStore } from "@/stores/AuthStore";
 import { observer } from "mobx-react";
+import Link from "next/link";
 import React, { useEffect } from "react";
 
 const RightSidebar = () => {
@@ -47,9 +48,12 @@ const RightSidebar = () => {
                 className="w-8 h-8 rounded-full mr-2"
               />
               <div>
-                <a href={`/users/${user.username}`} className="  text-white">
+                <Link
+                  href={`/profile/${user.username}`}
+                  className="  text-white"
+                >
                   {user.fullname}
-                </a>
+                </Link>
                 <p className="  text-gray-400 text-sm">{user.title}</p>
               </div>
             </li>

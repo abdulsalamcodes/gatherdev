@@ -87,7 +87,7 @@ const PostPage = () => {
         {/* Main Content Area */}
         <main className="h-full mx-auto px-4 md:px-8 mt-8 max-w-7xl flex flex-wrap">
           {/* Left Sidebar */}
-          <div className="w-full md:w-1/4 mb-5">
+          <div className="w-full hidden sm:block md:w-1/4 mb-5">
             <LeftSidebar />
           </div>
 
