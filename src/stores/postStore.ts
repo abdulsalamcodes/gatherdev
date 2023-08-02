@@ -29,6 +29,7 @@ class PostStoreClass {
 
   async loadPosts() {
     try {
+      this.loading = true;
       // Ensure the user is authenticated before making the API call
       await Auth.currentAuthenticatedUser();
 

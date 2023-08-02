@@ -7,7 +7,6 @@ import { API, Amplify, Auth } from "aws-amplify";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import * as mutations from "../../graphql/mutations";
-import * as queries from "../../graphql/queries";
 import LoadingComponent from "@/components/AtomicComponents/Loading";
 import PostCard from "./PostCard";
 import LeftSidebar from "./LeftSidebar";
@@ -19,12 +18,11 @@ import { AuthStore } from "@/stores/AuthStore";
 import { PostStore } from "@/stores/postStore";
 import awsconfig from "../../aws-exports";
 
-Amplify.configure({
-  Auth: awsconfig,
-});
+Amplify.configure(awsconfig);
 
 const PostPage = () => {
   const [posting, setPosting] = useState(false);
+  const { currentUser, loadCurrentUser } = AuthStore;
   const router = useRouter();
   const logUserOut = () => {
     AuthStore.logout();
@@ -46,7 +44,7 @@ const PostPage = () => {
             query: mutations.createPost,
             variables: {
               input: {
-                userPostsId: AuthStore.currentUser?.id,
+                userPostsId: currentUser?.id,
                 content,
                 language,
                 topicTag,
@@ -79,7 +77,7 @@ const PostPage = () => {
       localStorage.getItem("currentUserId") || "null"
     );
     if (currentUserId) {
-      AuthStore.loadCurrentUser(currentUserId);
+      loadCurrentUser(currentUserId);
     }
   }, []);
 
