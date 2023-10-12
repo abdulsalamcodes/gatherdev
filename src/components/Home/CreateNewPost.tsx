@@ -4,6 +4,9 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDarkInit } from "@uiw/codemirror-theme-vscode";
 import { AiOutlineClose } from "react-icons/ai";
+import { PostStore } from "@/stores/postStore";
+import { AuthStore } from "@/stores/AuthStore";
+import styles from "./CreateNewPost.module.scss"; // Import styles from your module
 
 type Props = {
   onSubmit: (
@@ -15,7 +18,7 @@ type Props = {
   isPosting: boolean;
 };
 
-const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
+const CreateNewPost = () => {
   const [content, setContent] = useState("");
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("javascript");
@@ -24,7 +27,14 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
 
   const handleSubmit = () => {
     if (content.trim() !== "") {
-      onSubmit(content, code, language, topicTag);
+      PostStore.createPost(AuthStore.currentUser?.id!, {
+        content,
+        code,
+        language,
+        id: "",
+        topicTag: "",
+        author: AuthStore.currentUser!,
+      });
       setContent("");
       setCode("");
       setLanguage("javascript");
@@ -47,98 +57,75 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
   };
 
   return (
-    <div className="shadow-md mb-4">
-      {/* Button-like UI to open the modal */}
-      <div
-        className="cursor-pointer text-white border-gray-900 border-2 rounded-full text-center bg-gray-700 hover:bg-gray-800 px-6 py-3 shadow-md transition-all duration-200 ease-in-out mb-4"
-        onClick={() => setShowModal(true)}
-      >
+    <div className={styles.postCard}>
+      <div className={styles.createButton} onClick={() => setShowModal(true)}>
         Create New Post
       </div>
 
-      {/* Modal */}
       {showModal && (
         <>
-          <div className="fixed inset-0 bg-black bg-opacity-50" />
-          <div
-            className="flex items-center justify-center fixed inset-0 "
+          <button
+            className={styles.overlay}
             onClick={() => setShowModal(false)}
-          >
-            <div className=" bg-gray-800 w-11/12  sm:w-1/3 p-8 mt-10 rounded-lg shadow-md">
-              {/* Input for Language */}
-              <div className="flex items-left">
+          />
+          <div className={styles.modal}>
+            <div className={styles.closeButton}>
               <AiOutlineClose color="white" size={30} />
-
-              </div>
-              <div className="mb-4">
-                <label htmlFor="language" className="block   text-white mb-2">
-                  Language:
-                </label>
+            </div>
+            <section className={styles.actions}>
+              <div className={styles.languageSelect}>
+                <label htmlFor="language">Language:</label>
                 <select
                   id="language"
-                  className="w-full p-2 border  border-gray-600 rounded mb-2    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
                   value={language}
                   onChange={handleLanguageChange}
                 >
                   <option value="javascript">JavaScript</option>
                   <option value="typescript">TypeScript</option>
                   <option value="python">Python</option>
-                  {/* Add more options for other languages */}
                 </select>
               </div>
-
-              {/* Input for Tags */}
-              <div className="mb-4">
-                <label htmlFor="tag" className="block  text-white mb-2">
-                  Tag:
-                </label>
+              <div className={styles.tagInput}>
+                <label htmlFor="tag">Tag:</label>
                 <input
                   type="text"
                   id="tag"
                   value={topicTag}
-                  className="w-full p-2 border  border-gray-600 rounded mb-2    bg-gray-800 text-white focus:outline-none focus:border-accent-primary"
                   placeholder="Add tag (e.g., #react, #nextJs, #motivation, etc.)"
                   onChange={handleTagsChange}
                 />
               </div>
-
-              {/* Code Editor */}
-              <div className="mb-4">
-                <label htmlFor="code-editor" className="block  text-white mb-2">
-                  Enter your code:
-                </label>
-                <CodeMirror
-                  id="code-editor"
-                  value={code}
-                  height="200px"
-                  extensions={[javascript({ jsx: true, typescript: true })]}
-                  theme={vscodeDarkInit({
-                    settings: {
-                      caret: "#c6c6c6",
-                      fontFamily: "monospace",
-                      gutterBorder: "5px solid",
-                      gutterBackground: "#1e1e1e",
-                    },
-                  })}
-                  onChange={handleCodeChange}
-                />
-              </div>
-
-              {/* Textarea for Content */}
-              <textarea
-                className="w-full p-2 border border-gray-600 rounded mb-4 resize-none    bg-gray-800 text-gray-800  text-white focus:outline-none focus:border-accent-primary"
-                placeholder="Join the coding conversation 🚀"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-
-              {/* Button */}
-              <CButton
-                onClick={handleSubmit}
-                label="Post"
-                isLoading={isPosting}
+            </section>
+            <div className={styles.codeEditor}>
+              <label htmlFor="code-editor">Enter your code:</label>
+              <CodeMirror
+                id="code-editor"
+                value={code}
+                height="200px"
+                className={styles.CodeMirror}
+                extensions={[javascript({ jsx: true, typescript: true })]}
+                theme={vscodeDarkInit({
+                  settings: {
+                    caret: "#c6c6c6",
+                    fontFamily: "monospace",
+                    gutterBorder: "5px solid",
+                    gutterBackground: "#1e1e1e",
+                  },
+                })}
+                onChange={handleCodeChange}
               />
             </div>
+            <textarea
+              placeholder="Join the coding conversation 🚀"
+              value={content}
+              className={styles.textarea}
+              onChange={(e) => setContent(e.target.value)}
+            />
+            <CButton
+              onClick={handleSubmit}
+              label="Post"
+              isLoading={PostStore.posting}
+            />
           </div>
         </>
       )}

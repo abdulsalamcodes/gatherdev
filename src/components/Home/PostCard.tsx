@@ -7,66 +7,68 @@ import {
   AiOutlineComment,
   AiOutlineBook,
 } from "react-icons/ai";
+import styles from "./PostCard.module.scss"; // Import styles from your module
+import Image from "next/image";
 
 const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
   return (
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md mb-5">
+    <div className={styles.postCard}>
       {/* Author Details */}
-      <div className="flex items-center mb-2">
-        <img
+      <div className={styles.authorDetails}>
+        <Image
+          height={40}
+          width={40}
           src={
             post.author?.profilePicture ||
             "https://randomuser.me/api/portraits/men/1.jpg"
           }
           alt="Author"
-          className="w-8 h-8 rounded-full mr-2"
+          className={styles.authorImage}
         />
         <div>
           <Link
             href={`/profile/${post.author?.username}`}
-            className="  text-gray-300 text-sm font-semibold"
+            className={styles.authorUsername}
           >
             {user?.username}
           </Link>
-          <p className="  text-gray-300 text-sm">{user?.title}</p>
+          <p className={styles.authorTitle}>{user?.title}</p>
         </div>
       </div>
 
       {/* Text-based Content */}
-      <p className="  text-white mb-4">{post.content}</p>
+      <p className={styles.contentText}>{post.content}</p>
 
       {/* Code Section */}
-      <div className="overflow-auto bg-gray-900 text-white rounded-lg mb-4">
-        <pre className="p-4">{post?.code}</pre>
+      <div className={styles.codeSection}>
+        <div className={styles.codeBlock}>
+          <pre>{post?.code}</pre>
+        </div>
       </div>
 
-      <div className="mb-4 flex items-center gap-2">
+      <div className={styles.topicTags}>
         {/* Topic Tag */}
         {post?.language && (
-          <div className="bg-accent-primary text-white rounded-lg">
-            #{post?.language}
-          </div>
+          <div className={styles.topicTag}>#{post?.language}</div>
         )}
         {/* Topic Tag */}
         {post?.topicTag && (
-          <div className="bg-accent-primary text-white rounded-lg">
-            {post?.topicTag}
-          </div>
+          <div className={styles.topicTag}>{post?.topicTag}</div>
         )}
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between">
-        <button className="  text-gray-300 flex items-center space-x-2">
-          <AiOutlineHeart className="h-5 w-5" />
+      <div className={styles.actionButtons}>
+        <button className={styles.actionButton}>
+          <AiOutlineHeart className={styles.icon} />
           <span>Like</span>
         </button>
-        <button className="  text-gray-300 flex items-center space-x-2">
-          <AiOutlineComment className="h-5 w-5" />
+        <button className={styles.actionButton}>
+          <AiOutlineComment className={styles.icon} />
           <span>Comment</span>
         </button>
-        <button className="  text-gray-300 flex items-center space-x-2">
-          <AiOutlineBook className="h-5 w-5" />
+        <button className={styles.actionButton}>
+          <AiOutlineBook className={styles.icon} />
           <span>Bookmark</span>
         </button>
       </div>

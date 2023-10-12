@@ -26,9 +26,9 @@ const AuthenticatedNav: React.FC<AuthenticatedNavProp> = ({
       <input
         type="text"
         placeholder="Search..."
-        className={styles.globarSearch}
+        className={styles.globalSearch}
       />
-      <ul className="flex items-center justify-center gap-5">
+      <ul className={styles.navItems}>
         {/* Profile Button or Avatar */}
         <li>
           <Link
@@ -44,10 +44,9 @@ const AuthenticatedNav: React.FC<AuthenticatedNavProp> = ({
         </li>
         <li>
           <button
+            type="button"
             onClick={handleLogout}
-            className={clsx({
-              [styles.link]: true,
-            })}
+            className={styles.logout}
           >
             <FaSignOutAlt className="h-5 w-5 mr-1" />
             Logout

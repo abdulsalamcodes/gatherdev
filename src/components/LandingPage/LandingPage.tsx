@@ -1,7 +1,10 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import styles from "./LandingPage.module.scss";
 import clsx from "clsx";
+import { AuthStore } from "@/stores/AuthStore";
+import Feed from "../Home/Feed";
 
 type Props = {};
 interface AuthButtonCompProp {
@@ -26,7 +29,11 @@ const AuthButton: React.FC<AuthButtonCompProp> = ({ text, variant }) => {
   );
 };
 export default function LandingPage({}: Props) {
-  return (
+  const isAuthenticad = AuthStore.currentUser;
+
+  return isAuthenticad ? (
+    <Feed />
+  ) : (
     <main className={styles.container}>
       <h1 className={styles.heading}>
         Connect, Collaborate, and Elevate your coding journey

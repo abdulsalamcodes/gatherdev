@@ -1,0 +1,26 @@
+@import "../../styles/variable.scss";
+
+.container {
+  min-height: 100vh;
+  background-color: $gray-950;
+}
+
+.main {
+  width: 100%;
+  margin: 80px auto;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 22.5% 1fr 22.5%;
+  gap: 20px;
+  color: white;
+}
+
+.left {
+}
+
+.center {
+  overflow: hidden;
+}
+
+.right {
+}

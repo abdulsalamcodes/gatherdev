@@ -1,11 +1,14 @@
 import React from "react";
+import "./Loading.module.scss";
 
-const LoadingComponent = () => {
-    return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-        <div className="text-white text-xl font-bold">Loading...</div>
-      </div>
-    );
+const Loading = ({ size = 40, color = "#3498db" }) => {
+  const spinnerStyle = {
+    width: size + "px",
+    height: size + "px",
+    borderTop: `4px solid ${color}`,
+  };
+
+  return <div className="spinner" style={spinnerStyle}></div>;
 };
 
-export default LoadingComponent;
+export default Loading;
