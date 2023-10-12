@@ -2,8 +2,10 @@ import { action, computed, makeObservable, observable } from "mobx";
 import { IPost } from "@/types/post";
 import AppStore from "./app";
 import * as queries from "../graphql/queries";
+import * as mutations from "../graphql/mutations";
+
 import { API, Auth } from "aws-amplify";
-import { ListPostsQuery } from "@/API";
+import { CreatePostMutation, ListPostsQuery } from "@/API";
 import {
   GRAPHQL_AUTH_MODE,
   GraphQLQuery,
@@ -15,6 +17,7 @@ import { AuthStore } from "./AuthStore";
 class PostStoreClass {
   posts: IPost[];
   loading: boolean = false;
+  posting: boolean = false;
 
   constructor() {
     this.posts = [];
@@ -22,6 +25,7 @@ class PostStoreClass {
       posts: observable,
       loading: observable,
       loadPosts: action,
+      posting: observable,
       addPost: action,
       allPosts: computed,
     });
@@ -56,6 +60,39 @@ class PostStoreClass {
     } finally {
       this.loading = false;
     }
+  }
+
+  async createPost(userId: string, post: IPost) {
+    try {
+      this.posting = true;
+      const user = await Auth.currentAuthenticatedUser();
+      if (user) {
+        const newPostResp = await API.graphql<GraphQLQuery<CreatePostMutation>>(
+          {
+            query: mutations.createPost,
+            variables: {
+              input: {
+                userPostsId: userId,
+                content: post.content,
+                language: post.language,
+                topicTag: post.topicTag,
+                code: post.code,
+              },
+            },
+            authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+          }
+        );
+        console.log("newPostResp:", newPostResp.data?.createPost);
+        // @ts-ignore
+        PostStore.addPost(newPostResp.data?.createPost);
+      } else {
+        AuthStore.logout();
+      }
+    } catch (error: any) {
+      toast.error(error || "Something went wrong.");
+      console.error("Error creating post:", error);
+    }
+    this.posting = false;
   }
 
   addPost(post: IPost) {

@@ -16,7 +16,9 @@ export interface IUser {
   email: string;
   fullname?: string;
   title?: string;
-  posts?: IPost[];
+  posts?: {
+    items: IPost[];
+  };
   createdAt?: string;
   updatedAt?: string;
   friendsCount?: number;
@@ -120,7 +122,7 @@ class AuthStoreClass {
       const resp = API.graphql(graphqlOperation(mutations.updateUser, input));
 
       console.log("UpdatedUser", resp);
-    
+
       // Do something with the user data
       // this.currentUser = data.updateUser;
       // return data.updateUser;

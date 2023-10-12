@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
@@ -10,12 +9,12 @@ import awsconfig from "../aws-exports";
 
 const fira_code = Fira_Code({ subsets: ["latin"] });
 
-Amplify.configure({...awsconfig,ssr: true});
+Amplify.configure({ ...awsconfig, ssr: true });
 
 export const metadata: Metadata = {
-  title: "Codesphere - Connect and Collaborate with Developers",
+  title: "Connect and Collaborate with Developers || gather.dev",
   description:
-    "Join Codesphere, the ultimate social network for developers, to connect, collaborate, and take your coding journey to new heights.",
+    "With gather.dev, you bond and connect with  developers, creatives to collaborate, and take your professional journey to new heights.",
 };
 
 export default function RootLayout({
@@ -23,14 +22,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       <body className={fira_code.className}>
-        {/* <Providers> */}
-          <Navbar />
-          {children}
-        {/* </Providers> */}
+        <Navbar />
+        {children}
         <ToastContainer
           position="top-right"
           autoClose={5000}

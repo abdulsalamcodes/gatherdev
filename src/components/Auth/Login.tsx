@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-Amplify.configure({...awsconfig,ssr: true});
+import styles from "./Auth.module.scss";
+
+Amplify.configure({ ...awsconfig, ssr: true });
 
 type LoginParameters = {
   username: string;
@@ -33,12 +35,6 @@ const Login = () => {
   const { tokens } = useTheme();
   const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
-
-  const css = `
-  .custom-card-class {
-    background-color: #1e1e1e;
-    border-radius: ${tokens.radii.medium};
-  }`;
 
   type SignInParameters = {
     username: string;
@@ -81,59 +77,45 @@ const Login = () => {
 
   return (
     <FormikProvider value={formik}>
-      <div className="flex flex-col items-center p-5 justify-center bg-gray-black">
-        <form className="w-full max-w-md" onSubmit={formik.handleSubmit}>
-          <header className="">
-            <h1 className="mb-5 text-center text-xl">Access your account </h1>
+      <main className={styles.container}>
+        <form className={styles.form} onSubmit={formik.handleSubmit}>
+          <header className={styles.form__header}>
+            <h1 className={`${styles.textCenter}`}>Log In Your account</h1>
           </header>
-          <style>{css}</style>
-          <Card className="custom-card-class">
-            <label htmlFor="username" className="block mb-5">
-              <span className="text-white mb-3">Username</span>
-              <input
-                type="text"
-                id="username"
-                className="mt-1 px-4 py-2 block w-full rounded
-                   outline-none
-                   bg-gray-900 text-white border border-gray-700"
-                {...formik.getFieldProps("username")}
-              />
-              {formik.touched.username && formik.errors.username && (
-                <p className="text-red-500">{formik.errors.username}</p>
-              )}
-            </label>
-            <label htmlFor="password" className="block mb-5">
-              <span className="text-white mb-3">Password</span>
-              <input
-                type="password"
-                id="password"
-                className="mt-1 px-4 py-2 block w-full
-                   outline-none
-                   rounded bg-gray-900 text-white border border-gray-700"
-                {...formik.getFieldProps("password")}
-              />
-              {formik.touched.password && formik.errors.password && (
-                <p className="text-red-500">{formik.errors.password}</p>
-              )}
-            </label>
-            <CButton
-              label={"Access"}
-              // @ts-ignore
-              type={"submit"}
-              isLoading={reqLoading}
-              // onClick={formik.handleSubmit}
+          <label htmlFor="username" className={styles.form__input}>
+            <span>Username</span>
+            <input
+              type="text"
+              id="username"
+              {...formik.getFieldProps("username")}
             />
+            {formik.touched.username && formik.errors.username && (
+              <p className={`text-red-500`}>{formik.errors.username}</p>
+            )}
+          </label>
+          <label htmlFor="password" className={styles.form__input}>
+            <span>Password</span>
+            <input
+              type="password"
+              id="password"
+              {...formik.getFieldProps("password")}
+            />
+            {formik.touched.password && formik.errors.password && (
+              <p className={`text-red-500`}>{formik.errors.password}</p>
+            )}
+          </label>
+          <CButton
+            label={"Access"}
+            // @ts-ignore
+            type={"submit"}
+            isLoading={reqLoading}
+          />
 
-            <Link
-              href={"/signup"}
-              className="text-white text-center text-sm  underline w-full hover:text-gray-100 pt-4 px-4"
-              type="button"
-            >
-              Create an account
-            </Link>
-          </Card>
+          <Link href={"/signup"} className={styles.createAccount} type="button">
+            Create an account
+          </Link>
         </form>
-      </div>
+      </main>
     </FormikProvider>
   );
 };
