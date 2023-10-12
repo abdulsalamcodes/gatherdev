@@ -3,6 +3,7 @@ import CButton from "../AtomicComponents/CButton";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDarkInit } from "@uiw/codemirror-theme-vscode";
+import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {
   onSubmit: (
@@ -49,7 +50,7 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
     <div className="shadow-md mb-4">
       {/* Button-like UI to open the modal */}
       <div
-        className="cursor-pointer text-white rounded-full text-center bg-blue-500 hover:bg-blue-600 px-6 py-3 shadow-md transition-all duration-200 ease-in-out mb-4"
+        className="cursor-pointer text-white border-gray-900 border-2 rounded-full text-center bg-gray-700 hover:bg-gray-800 px-6 py-3 shadow-md transition-all duration-200 ease-in-out mb-4"
         onClick={() => setShowModal(true)}
       >
         Create New Post
@@ -59,9 +60,16 @@ const CreateNewPost = ({ onSubmit, isPosting }: Props) => {
       {showModal && (
         <>
           <div className="fixed inset-0 bg-black bg-opacity-50" />
-          <div className="flex items-center justify-center fixed inset-0 ">
+          <div
+            className="flex items-center justify-center fixed inset-0 "
+            onClick={() => setShowModal(false)}
+          >
             <div className=" bg-gray-800 w-11/12  sm:w-1/3 p-8 mt-10 rounded-lg shadow-md">
               {/* Input for Language */}
+              <div className="flex items-left">
+              <AiOutlineClose color="white" size={30} />
+
+              </div>
               <div className="mb-4">
                 <label htmlFor="language" className="block   text-white mb-2">
                   Language:

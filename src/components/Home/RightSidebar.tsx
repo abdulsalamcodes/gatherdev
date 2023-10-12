@@ -1,6 +1,7 @@
 import { useMainContext } from "@/appContext";
 import { AuthStore } from "@/stores/AuthStore";
 import { observer } from "mobx-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 
@@ -39,7 +40,9 @@ const RightSidebar = () => {
         <ul>
           {AuthStore.allUsers.map((user) => (
             <li key={user.id} className="flex items-center mb-2">
-              <img
+              <Image
+              height={8}
+              width={8}
                 src={
                   user.profilePicture ||
                   "https://randomuser.me/api/portraits/men/1.jpg"

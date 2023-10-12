@@ -1,0 +1,62 @@
+@import "../../styles/variable.scss";
+
+.container {
+  background-color: $gray-900;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem 1rem;
+  z-index: 1;
+  position: relative;
+  margin-bottom: 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 2px solid $gray-900;
+
+  &:hover {
+    color: #ffffff;
+    border-bottom: 2px solid $blue-500;
+  }
+}
+
+.logo {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 900;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 2px solid $gray-900;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .logoImage {
+    border-radius: 100px;
+  }
+
+  &:hover {
+    color: #ffffff;
+    border-bottom: 2px solid $blue-500;
+  }
+}
+
+.publicNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
