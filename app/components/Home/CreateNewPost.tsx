@@ -101,15 +101,17 @@ const CreateNewPost = () => {
               <CodeMirror
                 id="code-editor"
                 value={code}
-                height="200px"
-                className={styles.CodeMirror}
+                height="100%"
+                className={`${styles.CodeMirror} primaryCodeMirror`}
                 extensions={[javascript({ jsx: true, typescript: true })]}
                 theme={vscodeDarkInit({
                   settings: {
-                    caret: "#c6c6c6",
+                    caret: "#c66c6",
                     fontFamily: "monospace",
                     gutterBorder: "5px solid",
-                    gutterBackground: "#1e1e1e",
+                    gutterBackground: "hsla(221, 89%, 7%, 0.5)",
+
+                    background: "#020d24",
                   },
                 })}
                 onChange={handleCodeChange}

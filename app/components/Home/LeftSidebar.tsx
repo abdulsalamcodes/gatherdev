@@ -39,7 +39,7 @@ const LeftSidebar = () => {
 
       {/* Trending Topics */}
       <div className={styles.card}>
-        <h2 className={styles.header}>Trending Topics</h2>
+        <h2 className={styles.header}>Filter By Tags</h2>
         <ul className={styles.tags}>
           {tags.map((tag) => (
             <li className={styles.tag} key={tag}>

@@ -5,11 +5,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   overflow: hidden;
   color: white;
   font-family: "Fira Code", monospace;
-  background: url("/landing-bg.png") #020d24 no-repeat center center fixed;
+  height: 100vh;
+  z-index: 2;
 }
 
 .heading {

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 
 import styles from "./Auth.module.scss";
 import { AuthStore, IUser } from "@/stores/AuthStore";
+import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 
 Amplify.configure({ ...awsconfig, ssr: true });
 
@@ -84,6 +85,8 @@ const Login = () => {
   return (
     <FormikProvider value={formik}>
       <main className={styles.container}>
+        <BgWrap />
+
         <form className={styles.form} onSubmit={formik.handleSubmit}>
           <header className={styles.form__header}>
             <h1>Log In Your account</h1>
