@@ -1,0 +1,103 @@
+$gray-800: #1f2937;
+$gray-900: #111827;
+$gray-950: #030712;
+$gray-400: #9ca3af;
+$gray-200: #e5e7eb;
+$blue-500: #3b82f6;
+$emerald-800: #065f46;
+
+$primary: #020d24;
+
+/* Design System Variables */
+
+/* Colors */
+$primary: #020d24;
+$primary-light: hsla(221, 89%, 7%, 0.1);
+$secondary: #ff9900;
+
+/* Typography */
+$font-family: "Fira Code", monospace;
+$font-sizes: (
+  h1: 2rem,
+  h2: 1.5rem,
+  h3: 1.25rem,
+  h4: 1rem,
+  p: 1rem,
+  small: 0.875rem,
+);
+
+$font-weights: (
+  bold: 700,
+  regular: 400,
+);
+
+/* Spacing */
+$spacing-unit: 1rem;
+
+/* Buttons */
+$primary-button: (
+  background-color: $primary,
+  color: #fff,
+  border: none,
+);
+
+$secondary-button: (
+  background-color: $secondary,
+  color: #fff,
+  border: none,
+);
+
+/* Forms */
+$input-fields: (
+  border: 1px solid #ccc,
+  border-radius: 0.25rem,
+  padding: 0.5rem 1rem,
+);
+
+/* Components */
+$header: (
+  background-color: $primary,
+  color: #fff,
+  padding: $spacing-unit,
+);
+
+$footer: (
+  background-color: $primary,
+  color: #fff,
+  padding: $spacing-unit,
+);
+
+/* Cards */
+$card: (
+  background-color: #fff,
+  border: 1px solid #ccc,
+  border-radius: 0.25rem,
+  padding: $spacing-unit,
+);
+
+/* Modals */
+$modal: (
+  background-color: #fff,
+  border: 1px solid #ccc,
+  border-radius: 0.25rem,
+  padding: $spacing-unit,
+);
+
+/* Icons */
+$iconography: (
+  font-size: 1.25rem,
+);
+
+/* Accessibility */
+$accessibility: (
+  link-focus: 2px solid $primary,
+  link-visited: #551a8b,
+);
+
+/* Responsive Design */
+$breakpoints: (
+  small: 576px,
+  medium: 768px,
+  large: 992px,
+  xlarge: 1200px,
+);
