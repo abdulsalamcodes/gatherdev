@@ -5,7 +5,7 @@ import { Fira_Code } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Amplify } from "aws-amplify";
-import awsconfig from "./aws-exports";
+import awsconfig from "../src/aws-exports";
 
 const fira_code = Fira_Code({ subsets: ["latin"] });
 

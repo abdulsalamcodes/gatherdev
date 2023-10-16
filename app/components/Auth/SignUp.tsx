@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { Amplify, Auth } from "aws-amplify";
 import { FormikProvider, useFormik } from "formik";
 import CButton from "../AtomicComponents/CButton/CButton";
-import awsconfig from "../../aws-exports";
+import awsconfig from "../../../src/aws-exports";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import styles from "./Auth.module.scss";
