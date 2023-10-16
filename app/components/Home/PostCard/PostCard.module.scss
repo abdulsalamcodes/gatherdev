@@ -1,5 +1,5 @@
 // PostCard.module.scss
-@import "../../styles/variable.scss";
+@import "../../../styles/variable.scss";
 
 .postCard {
   background-color: $gray-800;
@@ -8,6 +8,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 1rem;
   color: $gray-200; // Text color
+  font-size: 14px;
 }
 
 .authorDetails {
@@ -81,6 +82,7 @@
     display: flex;
     font-family: inherit;
     align-items: center;
+    font-size: 12px;
     background-color: $gray-900;
     border: none;
     border-radius: 10px;
@@ -91,6 +93,12 @@
     .icon {
       width: 1.25rem;
       height: 1.25rem;
+    }
+
+    @media (max-width: $sm-breakpoint) {
+      span {
+        display: none;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import PostCard from "../Home/PostCard";
+import PostCard from "../Home/PostCard/PostCard";
 import ProfileSidebar from "./ProfileSidebar";
 import { observer } from "mobx-react";
 import { IPost } from "../../types/post";
@@ -31,7 +31,7 @@ const ProfilePage = ({ username }: { username?: string }) => {
   };
 
   const PostEmpty = () => {
-    return <p className="text-gray-500">No posts yet.</p>;
+    return <p>No posts yet.</p>;
   };
 
   return (

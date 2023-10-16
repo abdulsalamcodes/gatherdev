@@ -1,4 +1,4 @@
-import LoadingComponent from "../components/AtomicComponents/Loading";
+import LoadingComponent from "../components/AtomicComponents/Loader/Loader";
 import React from "react";
 
 const loading = () => {

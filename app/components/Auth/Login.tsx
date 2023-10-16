@@ -4,7 +4,7 @@ import "@aws-amplify/ui-react/styles.css";
 import * as Yup from "yup";
 import { Amplify, Auth, Hub } from "aws-amplify";
 import { FormikProvider, useFormik } from "formik";
-import CButton from "../AtomicComponents/CButton";
+import CButton from "../AtomicComponents/CButton/CButton";
 import awsconfig from "../../aws-exports";
 import { toast } from "react-toastify";
 import Link from "next/link";
@@ -43,8 +43,8 @@ const Login = () => {
   };
 
   function handleLoginSuccess(user: any) {
-    // You can display a welcome message or navigate to the user's profile, etc.
-    toast.success(`Welcome back, ${user.attributes.name}!`);
+    toast.success(`Welcome back, ${user.username}!`);
+    console.log("[LOGIN SUCCESS]", user);
   }
 
   function handleLoginError(error: any) {

@@ -1,4 +1,4 @@
-import { AuthStore } from "../../stores/AuthStore";
+import { AuthStore } from "../../../stores/AuthStore";
 import { observer } from "mobx-react";
 import React from "react";
 import styles from "./Sidebar.module.scss";

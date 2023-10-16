@@ -96,8 +96,11 @@ $accessibility: (
 
 /* Responsive Design */
 $breakpoints: (
-  small: 576px,
-  medium: 768px,
-  large: 992px,
-  xlarge: 1200px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xlg: 1200px,
 );
+
+$md-breakpoint: map-get($breakpoints, "md");
+$sm-breakpoint: map-get($breakpoints, "sm");

@@ -40,7 +40,6 @@ const ProfileSidebar = (props: Props) => {
           </div>
         </div>
 
-        <p className={styles.email}>{user?.email}</p>
         <p className={styles.title}>{user?.title}</p>
       </div>
 

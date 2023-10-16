@@ -1,19 +1,20 @@
-@import "../../styles/variable.scss";
+@import "../../../styles/variable.scss";
 
 .button {
-  background-color: $gray-200;
+  background-color: $blue-500;
   border: 1px solid $gray-900;
   border-radius: 5px;
-  color: #000;
+  color: $gray-200;
   font-size: 14px;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
   text-decoration: none;
   width: 100%;
+
   &:hover {
-    background-color: $gray-900;
+    opacity: 0.95;
     color: #fff;
   }
 }
