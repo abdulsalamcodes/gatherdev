@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Card, useTheme } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import * as Yup from "yup";
-import { Amplify, Auth, Hub } from "aws-amplify";
+import { Amplify, Auth } from "aws-amplify";
 import { FormikProvider, useFormik } from "formik";
 import CButton from "../AtomicComponents/CButton/CButton";
 import awsconfig from "../../aws-exports";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import styles from "./Auth.module.scss";
-import { AuthStore, IUser } from "@/stores/AuthStore";
+import { AuthStore } from "@/stores/AuthStore";
 import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 
 Amplify.configure({ ...awsconfig, ssr: true });
@@ -52,8 +50,14 @@ const Login = () => {
       toast.error("User does not exist, Please sign up.");
       return;
     }
-    console.log("[LOGIN ERROR]", error);
-    toast.error(error || "Login failed, please try again.");
+
+    if (error.name === "UserNotConfirmedException") {
+      router.push(`/confirm-account?username=${formik.values.username}`);
+      return;
+    }
+
+    console.log("[LOGIN ERROR]", error.name);
+    toast.error(error.message || "Login failed, please try again.");
   }
 
   async function signIn({ username, password }: SignInParameters) {
