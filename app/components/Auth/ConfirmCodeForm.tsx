@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { SetStateAction, useState } from "react";
 import VerificationInput from "react-verification-input";
 import CButton from "../AtomicComponents/CButton/CButton";
-import { API, Amplify, Auth, Hub } from "aws-amplify";
+import { Auth, Hub } from "aws-amplify";
 import { useRouter } from "next/navigation";
-import { IUser } from "../../stores/AuthStore";
 import { createUserInAppSync } from "@/utils";
 import { toast } from "react-toastify";
+import styles from "./Auth.module.scss";
+import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 
 type ConfirmSignUpParameters = {
   username: string;
@@ -16,18 +19,11 @@ type ResendConfCodeParameters = {
   username: string;
 };
 interface ConfirmCodeFormProp {
-  formik: any;
-  reqLoading: boolean;
-  setReqLoading: (value: boolean) => null;
-  setIsCodeSent: (value: boolean) => null;
+  username: string;
 }
-const ConfirmCodeForm: React.FC<ConfirmCodeFormProp> = ({
-  formik,
-  reqLoading,
-  setReqLoading,
-  setIsCodeSent,
-}) => {
+const ConfirmCodeForm: React.FC<ConfirmCodeFormProp> = ({ username }) => {
   const [confirmCode, setConfirmCode] = useState("");
+  const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
 
   function listenToAutoSignInEvent() {
@@ -38,7 +34,6 @@ const ConfirmCodeForm: React.FC<ConfirmCodeFormProp> = ({
         // assign user
         console.log("User Login successful::", user);
         if (user) {
-          setIsCodeSent(false);
           setReqLoading(false);
           createUserInAppSync({
             username: user.username,
@@ -77,48 +72,60 @@ const ConfirmCodeForm: React.FC<ConfirmCodeFormProp> = ({
     try {
       await Auth.resendSignUp(username);
       console.log("code resent successfully");
-    } catch (err) {
+      toast.success("Code resent successfully");
+    } catch (err: any) {
       console.log("error resending code: ", err);
+      toast.error(err.message || "Error resending code");
     }
   }
 
   const handleComplete = () => {
     confirmSignUp({
       code: confirmCode,
-      username: formik.values.username,
+      username: username,
     });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  bg-gray-black">
-      <header className="">
-        <h1 className="mb-5 text-center text-xl">Confirm Your Account</h1>
-      </header>
-      <div className="flex flex-col gap-4 items-center mt-6">
-        <VerificationInput
-          validChars="0-9"
-          autoFocus
-          inputProps={{ inputMode: "numeric" }}
-          onChange={(value) => setConfirmCode(value)}
-          value={confirmCode}
-        />
-        <CButton
-          label={"Sign Up"}
-          isLoading={reqLoading}
-          onClick={handleComplete}
-        />
-        <button
-          className="text-white text-center text-sm  underline w-full hover:text-gray-100 pt-4 px-4"
-          type="button"
-          onClick={() =>
-            resendConfirmationCode({
-              username: formik.values.username,
-            })
-          }
-        >
-          Resend confirmation code
-        </button>
-      </div>
+    <div className={styles.container}>
+      <BgWrap />
+      <form className={styles.form}>
+        <header className={styles.form__header}>
+          <h1>Confirm Your Account</h1>
+        </header>
+        <div className={styles.verificationInput}>
+          <VerificationInput
+            validChars="0-9"
+            autoFocus
+            inputProps={{ inputMode: "numeric" }}
+            onChange={(value) => setConfirmCode(value)}
+            value={confirmCode}
+            classNames={{
+              container: styles.inputContainer,
+
+              character: styles.character,
+              characterInactive: styles.characterInactive,
+              characterSelected: styles.characterSelected,
+            }}
+          />
+          <CButton
+            label={"Sign Up"}
+            isLoading={reqLoading}
+            onClick={handleComplete}
+          />
+          <button
+            type="button"
+            className={styles.resetBtn}
+            onClick={() =>
+              resendConfirmationCode({
+                username: username,
+              })
+            }
+          >
+            Resend confirmation code
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

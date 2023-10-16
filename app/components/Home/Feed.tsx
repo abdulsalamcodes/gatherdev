@@ -9,7 +9,7 @@ import RightSidebar from "./Sidebar/RightSidebar";
 import CreateNewPost from "./CreateNewPost/CreateNewPost";
 import { PostStore } from "../../stores/postStore";
 import styles from "./Feed.module.scss";
-import awsconfig from "../../aws-exports";
+import awsconfig from "../../../src/aws-exports";
 
 Amplify.configure(awsconfig);
 
