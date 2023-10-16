@@ -2,11 +2,11 @@
 import React, { useEffect } from "react";
 import { Amplify } from "aws-amplify";
 import { observer } from "mobx-react";
-import LoadingComponent from "../AtomicComponents/Loading";
-import PostCard from "./PostCard";
-import LeftSidebar from "./LeftSidebar";
-import RightSidebar from "./RightSidebar";
-import CreateNewPost from "./CreateNewPost";
+import Loader from "../AtomicComponents/Loader/Loader";
+import PostCard from "./PostCard/PostCard";
+import LeftSidebar from "./Sidebar/LeftSidebar";
+import RightSidebar from "./Sidebar/RightSidebar";
+import CreateNewPost from "./CreateNewPost/CreateNewPost";
 import { PostStore } from "../../stores/postStore";
 import styles from "./Feed.module.scss";
 import awsconfig from "../../aws-exports";
@@ -39,26 +39,24 @@ const Feed = () => {
   if (PostStore.loading) {
     return (
       <div className={styles.loaderWrapper}>
-        <LoadingComponent />
+        <Loader />
       </div>
     );
   }
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <div className={styles.left}>
-          <LeftSidebar />
-        </div>
-        <section className={styles.center}>
-          <CreateNewPost />
-          <MainContent />
-        </section>
-        <div className={styles.right}>
-          <RightSidebar />
-        </div>
-      </main>
-    </div>
+    <main className={styles.main}>
+      <div className={styles.left}>
+        <LeftSidebar />
+      </div>
+      <section className={styles.center}>
+        <CreateNewPost />
+        <MainContent />
+      </section>
+      <div className={styles.right}>
+        <RightSidebar />
+      </div>
+    </main>
   );
 };
 

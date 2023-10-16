@@ -7,12 +7,25 @@
   margin-top: 80px;
   max-width: 1200px;
   gap: 20px;
+  padding: 0 20px;
+
+  @media (max-width: $md-breakpoint) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .main {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow: hidden;
+}
+
+.aside {
+  position: sticky;
+  top: 80px;
+  left: 0;
+  height: max-content;
 }
 
 .sidebar {
@@ -21,6 +34,11 @@
   color: $gray-200;
   margin-top: 1rem;
   border-radius: 10px;
+
+  // Hide sidebars on small screens (less than 768px)
+  @media (max-width: $md-breakpoint) {
+    display: none;
+  }
 }
 .sidebar {
   background-color: $gray-800;

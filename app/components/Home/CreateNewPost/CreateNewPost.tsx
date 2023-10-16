@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
-import CButton from "../AtomicComponents/CButton";
+import CButton from "../../AtomicComponents/CButton/CButton";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDarkInit } from "@uiw/codemirror-theme-vscode";
 import { AiOutlineClose } from "react-icons/ai";
-import { PostStore } from "../../stores/postStore";
-import { AuthStore } from "../../stores/AuthStore";
+import { PostStore } from "../../../stores/postStore";
+import { AuthStore } from "../../../stores/AuthStore";
 import styles from "./CreateNewPost.module.scss"; // Import styles from your module
 
 type Props = {
@@ -101,15 +101,17 @@ const CreateNewPost = () => {
               <CodeMirror
                 id="code-editor"
                 value={code}
-                height="200px"
-                className={styles.CodeMirror}
+                height="100%"
+                className={`${styles.CodeMirror} primaryCodeMirror`}
                 extensions={[javascript({ jsx: true, typescript: true })]}
                 theme={vscodeDarkInit({
                   settings: {
-                    caret: "#c6c6c6",
+                    caret: "#c66c6",
                     fontFamily: "monospace",
                     gutterBorder: "5px solid",
-                    gutterBackground: "#1e1e1e",
+                    gutterBackground: "hsla(221, 89%, 7%, 0.5)",
+
+                    background: "#020d24",
                   },
                 })}
                 onChange={handleCodeChange}

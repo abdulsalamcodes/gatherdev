@@ -6,8 +6,9 @@ import { observer } from "mobx-react";
 import { useRouter } from "next/navigation";
 import { AuthStore } from "../../stores/AuthStore";
 import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import { LuSearch } from "react-icons/lu";
 import Image from "next/image";
-import { HiMenuAlt3 } from "react-icons/hi";
+import { HiMenuAlt3, HiSearch } from "react-icons/hi";
 import styles from "./Navbar.module.scss";
 import clsx from "clsx";
 import { PostStore } from "@/stores/postStore";
@@ -36,35 +37,29 @@ const AuthenticatedNav: React.FC<AuthenticatedNavProps> = ({
         />
         gather.dev
       </Link>
-      <div className={styles.authenticatedNav}>
+      <div className={styles.navbar__items}>
+        <button className={styles.searchIcon}>
+          <LuSearch />
+        </button>
         <input
           type="text"
           placeholder="Search..."
-          className={styles.globalSearch}
+          className={styles.navbar__search}
         />
-        <ul className={styles.navItems}>
-          <li>
-            <Link
-              className={clsx(styles.profileBtn, {
-                [isActive("/profile")]: true,
-              })}
-              href="/profile"
-            >
-              <FaUser />
-              Profile
-            </Link>
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className={styles.logout}
-            >
-              <FaSignOutAlt />
-              Logout
-            </button>
-          </li>
-        </ul>
+
+        <Link
+          className={clsx(styles.profileBtn, {
+            [isActive("/profile")]: true,
+          })}
+          href="/profile"
+        >
+          <FaUser />
+          <span className={styles.navbar__text}>Profile</span>
+        </Link>
+        <button type="button" onClick={handleLogout} className={styles.logout}>
+          <FaSignOutAlt />
+          <span className={styles.navbar__text}>Logout</span>
+        </button>
       </div>
     </nav>
   </header>

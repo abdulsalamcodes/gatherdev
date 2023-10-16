@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import VerificationInput from "react-verification-input";
-import CButton from "../AtomicComponents/CButton";
+import CButton from "../AtomicComponents/CButton/CButton";
 import { API, Amplify, Auth, Hub } from "aws-amplify";
 import { useRouter } from "next/navigation";
 import { IUser } from "../../stores/AuthStore";

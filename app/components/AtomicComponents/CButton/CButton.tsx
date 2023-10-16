@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CButton.module.scss";
-import Loading from "./Loading";
+import Loader from "../Loader/Loader";
 type ButtonProps = {
   onClick?: () => void;
   label: string;
@@ -14,7 +14,7 @@ const CButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button className={styles.button} onClick={onClick} type="submit" {...rest}>
-      {isLoading ? <Loading /> : label}
+      {isLoading ? <Loader size={30} color="white" /> : label}
     </button>
   );
 };

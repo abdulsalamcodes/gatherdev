@@ -1,0 +1,70 @@
+// settings.module.scss
+@import "../../styles/variable.scss";
+
+.main {
+  width: 100%;
+  margin: 80px auto;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  gap: 20px;
+  padding: 0 20px;
+  color: white;
+
+  @media (max-width: $md-breakpoint) {
+    grid-template-columns: 25% 1fr;
+  }
+
+  @media (max-width: $sm-breakpoint) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.center {
+  padding-top: 20px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 80px;
+  height: max-content;
+}
+
+.settingInput {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: transparent;
+  color: $gray-200;
+  border: 2px solid $gray-900;
+  border-radius: 100px;
+  font-family: inherit;
+  cursor: default;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+
+  &:focus {
+    border: 2px solid $blue-500;
+  }
+}
+
+.settingLabel {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.accountSetting {
+  margin-bottom: 1rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.button {
+  background-color: $blue-500;
+  color: $gray-200;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+}

@@ -1,4 +1,4 @@
-import { AuthStore } from "../../stores/AuthStore";
+import { AuthStore } from "../../../stores/AuthStore";
 import { observer } from "mobx-react";
 import React from "react";
 import styles from "./Sidebar.module.scss";
@@ -39,7 +39,7 @@ const LeftSidebar = () => {
 
       {/* Trending Topics */}
       <div className={styles.card}>
-        <h2 className={styles.header}>Trending Topics</h2>
+        <h2 className={styles.header}>Filter By Tags</h2>
         <ul className={styles.tags}>
           {tags.map((tag) => (
             <li className={styles.tag} key={tag}>

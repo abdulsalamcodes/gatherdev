@@ -1,5 +1,5 @@
-import { IUser } from "../../stores/AuthStore";
-import { IPost } from "../../types/post";
+import { IUser } from "../../../stores/AuthStore";
+import { IPost } from "../../../types/post";
 import Link from "next/link";
 import React from "react";
 import {

@@ -1,10 +1,6 @@
 @import "../../styles/variable.scss";
 
-.container {
-  min-height: 100vh;
-  background-color: $gray-950;
-}
-
+// Define the main container styles
 .main {
   width: 100%;
   margin: 80px auto;
@@ -12,9 +8,21 @@
   display: grid;
   grid-template-columns: 22.5% 1fr 22.5%;
   gap: 20px;
+  padding: 0 20px;
   color: white;
+
+  // Responsive layout for large screens
+  @media (max-width: map-get($breakpoints, "lg")) {
+    grid-template-columns: 25% 1fr;
+  }
+
+  // Responsive layout for medium screens
+  @media (max-width: map-get($breakpoints, "md")) {
+    grid-template-columns: 1fr;
+  }
 }
 
+// Loader wrapper for displaying loading content
 .loaderWrapper {
   display: flex;
   align-items: center;
@@ -22,12 +30,30 @@
   height: 100vh;
 }
 
-.left {
-}
-
-.center {
-  overflow: hidden;
-}
-
+// Styles for the left and right sidebars
+.left,
 .right {
+  position: sticky;
+  top: 80px;
+  height: max-content;
+
+  // Hide sidebars on small screens (less than 768px)
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Position the left sidebar to the left
+.left {
+  left: 0;
+}
+
+// Position the right sidebar to the right
+.right {
+  right: 0;
+}
+
+// Center content with horizontal overflow hidden
+.center {
+  overflow-x: hidden;
 }

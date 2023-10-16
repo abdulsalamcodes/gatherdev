@@ -1,5 +1,5 @@
 import { useMainContext } from "@/appContext";
-import { AuthStore } from "../../stores/AuthStore";
+import { AuthStore } from "../../../stores/AuthStore";
 import { observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";

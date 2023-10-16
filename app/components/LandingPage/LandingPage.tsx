@@ -5,7 +5,8 @@ import styles from "./LandingPage.module.scss";
 import clsx from "clsx";
 import { AuthStore } from "../../stores/AuthStore";
 import Feed from "../Home/Feed";
-
+import Image from "next/image";
+import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 type Props = {};
 interface AuthButtonCompProp {
   text: string;
@@ -35,6 +36,7 @@ export default function LandingPage({}: Props) {
     <Feed />
   ) : (
     <main className={styles.container}>
+      <BgWrap />
       <h1 className={styles.heading}>
         Collaborate and Elevate Your Coding Journey
       </h1>
