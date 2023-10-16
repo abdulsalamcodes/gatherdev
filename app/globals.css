@@ -64,6 +64,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  font-family: "Fira Code", monospace;
 }
 
 /* Correct the line-height in all browsers */

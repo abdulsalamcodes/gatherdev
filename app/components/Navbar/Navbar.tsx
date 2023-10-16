@@ -8,7 +8,7 @@ import { AuthStore } from "../../stores/AuthStore";
 import { FaUser, FaSignOutAlt } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 import Image from "next/image";
-import { HiMenuAlt3, HiSearch } from "react-icons/hi";
+import { HiMenuAlt3 } from "react-icons/hi";
 import styles from "./Navbar.module.scss";
 import clsx from "clsx";
 import { PostStore } from "@/stores/postStore";

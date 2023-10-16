@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./CButton.module.scss";
 import Loader from "../Loader/Loader";
-type ButtonProps = {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
   label: string;
   isLoading?: boolean;
-};
+}
 const CButton: React.FC<ButtonProps> = ({
   onClick,
   label,

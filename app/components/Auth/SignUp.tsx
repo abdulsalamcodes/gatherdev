@@ -20,15 +20,19 @@ type SignUpParameters = {
   email: string;
 };
 
+// Validation Rules
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  email: Yup.string()
+    .email("Provided Email not valide")
+    .required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
 });
 
-const initialValues: SignUpParameters = {
+// Initial Values.
+const formInitialValues: SignUpParameters = {
   email: "",
   password: "",
   username: "",
@@ -38,6 +42,17 @@ const SignUp = () => {
   const [reqLoading, setReqLoading] = useState(false);
   const router = useRouter();
 
+  // Formik configuration
+  const formik = useFormik({
+    initialValues: formInitialValues,
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Values", values);
+      signUp(values);
+    },
+  });
+
+  // Signup handler.
   async function signUp({ username, password, email }: SignUpParameters) {
     try {
       setReqLoading(true);
@@ -51,6 +66,7 @@ const SignUp = () => {
           enabled: true,
         },
       });
+      console.log("AuthPage User", user);
       if (user) {
         router.push(`/confirm-account?username=${username}`);
       }
@@ -60,19 +76,11 @@ const SignUp = () => {
         error.name === "UsernameExistsException" &&
           "User already exists, please login"
       );
+      toast.error(error.message || "Error signing up, plese try again");
       console.log("error signing up:", error);
     }
     setReqLoading(false);
   }
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      console.log("Values", values);
-      signUp(values);
-    },
-  });
 
   return (
     <FormikProvider value={formik}>
@@ -112,12 +120,7 @@ const SignUp = () => {
               <p className={styles.errorText}>{formik.errors.password}</p>
             )}
           </label>
-          <CButton
-            label={"Sign Up"}
-            // @ts-ignore
-            type={"submit"}
-            isLoading={reqLoading}
-          />
+          <CButton label={"Sign Up"} type={"submit"} isLoading={reqLoading} />
 
           <Link href={"/login"} className={styles.createAccount} type="button">
             Already have an account? Please login.

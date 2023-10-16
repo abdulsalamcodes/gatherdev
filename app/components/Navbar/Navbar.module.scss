@@ -42,16 +42,9 @@ $sm-breakpoint: map-get($breakpoints, "sm");
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  // flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-
-  @media (max-width: $md-breakpoint) {
-  }
-
-  @media (max-width: $sm-breakpoint) {
-  }
 
   &__items {
     display: flex;
@@ -96,22 +89,23 @@ $sm-breakpoint: map-get($breakpoints, "sm");
     }
   }
 
-  .profileBtn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: $gray-200;
-    text-decoration: none;
-  }
+  .profileBtn,
   .logout {
-    background-color: transparent;
-    border: none;
+    transition: all 0.2s ease-in-out;
     display: flex;
-    gap: 5px;
+    gap: 10px;
     align-items: center;
     color: $gray-200;
     font-size: 14px;
     font-family: "Fira Code", monospace;
+    text-decoration: none;
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+  .logout {
+    background-color: transparent;
+    border: none;
   }
 }
 

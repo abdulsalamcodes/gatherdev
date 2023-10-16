@@ -117,12 +117,7 @@ const Login = () => {
               <p className={styles.errorText}>{formik.errors.password}</p>
             )}
           </label>
-          <CButton
-            label={"Log In"}
-            // @ts-ignore
-            type={"submit"}
-            isLoading={reqLoading}
-          />
+          <CButton label={"Log In"} type={"submit"} isLoading={reqLoading} />
 
           <Link href={"/signup"} className={styles.createAccount} type="button">
             Create an account
