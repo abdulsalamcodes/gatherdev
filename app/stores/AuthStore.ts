@@ -1,9 +1,5 @@
 import { IPost } from "../types/post";
 import { clearCurrentUserFromLocalStorage, returnLocalStorage } from "@/utils";
-import { API, graphqlOperation } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/queries";
-import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { makeObservable, observable, action } from "mobx";
 import { clearPersistedStore, makePersistable } from "mobx-persist-store";
 // import localforage from "localforage";
@@ -54,59 +50,11 @@ class AuthStoreClass {
     });
   }
 
-  async loadCurrentUser(userId?: string) {
-    try {
-      // @ts-ignore
-      const { data } = await API.graphql({
-        query: queries.getUser,
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-        variables: {
-          id: userId,
-        },
-      });
+  async loadCurrentUser(userId?: string) {}
 
-      this.currentUser = data.getUser;
-    } catch (error) {
-      console.log("Error fetching user in AppSync:", error);
-    }
-  }
+  async loadAllUsers() {}
 
-  async loadAllUsers() {
-    try {
-      // @ts-ignore
-      const { data } = await API.graphql({
-        query: queries.listUsers,
-        variables: { limit: 3 },
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      });
-
-      this.allUsers = data.listUsers.items;
-    } catch (error) {
-      console.log("Error fetching all users in AppSync:", error);
-    }
-  }
-
-  async loadUserByUsername(username: string) {
-    try {
-      // @ts-ignore
-      const { data } = await API.graphql({
-        query: queries.listUsers,
-        variables: {
-          filter: {
-            username: {
-              eq: username, // Filter by the provided username
-            },
-          },
-        },
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      });
-
-      console.log("User data", data.listUsers.items[0]);
-      this.profileUser = data.listUsers.items[0];
-    } catch (error) {
-      console.log("Error fetching user by username in AppSync:", error);
-    }
-  }
+  async loadUserByUsername(username: string) {}
   async updateUser(fullname: string, title: string) {
     try {
       this.updatingUser = true;
@@ -114,14 +62,6 @@ class AuthStoreClass {
         fullname: fullname,
         title: title,
       };
-
-      const resp = API.graphql(graphqlOperation(mutations.updateUser, input));
-
-      console.log("UpdatedUser", resp);
-
-      // Do something with the user data
-      // this.currentUser = data.updateUser;
-      // return data.updateUser;
     } catch (error) {
       console.log("Error fetching user by username in AppSync:", error);
       return error;

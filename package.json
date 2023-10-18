@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^5.0.4",
     "@codemirror/lang-javascript": "^6.1.9",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
@@ -17,8 +16,6 @@
     "@uiw/codemirror-theme-okaidia": "^4.21.8",
     "@uiw/codemirror-theme-vscode": "^4.21.8",
     "@uiw/react-codemirror": "^4.21.8",
-    "aws-amplify": "^5.3.3",
-    "aws-crt": "^1.18.0",
     "axios": "^1.4.0",
     "clsx": "^2.0.0",
     "encoding": "^0.1.13",
@@ -40,8 +37,5 @@
     "sharp": "^0.32.6",
     "typescript": "5.1.6",
     "yup": "^1.2.0"
-  },
-  "devDependencies": {
-    "fake-indexeddb": "^4.0.2"
   }
 }

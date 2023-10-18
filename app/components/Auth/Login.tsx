@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import "@aws-amplify/ui-react/styles.css";
 import * as Yup from "yup";
-import { Amplify, Auth } from "aws-amplify";
 import { FormikProvider, useFormik } from "formik";
 import CButton from "../AtomicComponents/CButton/CButton";
-import awsconfig from "../../../src/aws-exports";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./Auth.module.scss";
-import { AuthStore } from "@/stores/AuthStore";
 import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
-
-Amplify.configure({ ...awsconfig, ssr: true });
 
 type LoginParameters = {
   username: string;
@@ -61,20 +55,20 @@ const Login = () => {
   }
 
   async function signIn({ username, password }: SignInParameters) {
-    try {
-      setReqLoading(true);
-      const user = await Auth.signIn(username, password);
-      Auth.rememberDevice();
-      if (user) {
-        await AuthStore.loadCurrentUser(user.attributes.sub);
-        handleLoginSuccess(user);
-        router.push("/home");
-      }
-    } catch (error: any) {
-      handleLoginError(error);
-    } finally {
-      setReqLoading(false);
-    }
+    // try {
+    //   setReqLoading(true);
+    //   const user = await Auth.signIn(username, password);
+    //   Auth.rememberDevice();
+    //   if (user) {
+    //     await AuthStore.loadCurrentUser(user.attributes.sub);
+    //     handleLoginSuccess(user);
+    //     router.push("/home");
+    //   }
+    // } catch (error: any) {
+    //   handleLoginError(error);
+    // } finally {
+    //   setReqLoading(false);
+    // }
   }
 
   const formik = useFormik({

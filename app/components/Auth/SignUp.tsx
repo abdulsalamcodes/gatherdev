@@ -1,18 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import "@aws-amplify/ui-react/styles.css";
 import * as Yup from "yup";
-import { Amplify, Auth } from "aws-amplify";
 import { FormikProvider, useFormik } from "formik";
 import CButton from "../AtomicComponents/CButton/CButton";
-import awsconfig from "../../../src/aws-exports";
-import { toast } from "react-toastify";
 import Link from "next/link";
 import styles from "./Auth.module.scss";
 import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 import { useRouter } from "next/navigation";
-
-Amplify.configure({ ...awsconfig, ssr: true });
 
 type SignUpParameters = {
   username: string;
@@ -54,32 +48,32 @@ const SignUp = () => {
 
   // Signup handler.
   async function signUp({ username, password, email }: SignUpParameters) {
-    try {
-      setReqLoading(true);
-      const { user } = await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-        autoSignIn: {
-          enabled: true,
-        },
-      });
-      console.log("AuthPage User", user);
-      if (user) {
-        router.push(`/confirm-account?username=${username}`);
-      }
-      console.log("Values", user);
-    } catch (error: any) {
-      toast.error(
-        error.name === "UsernameExistsException" &&
-          "User already exists, please login"
-      );
-      toast.error(error.message || "Error signing up, plese try again");
-      console.log("error signing up:", error);
-    }
-    setReqLoading(false);
+    // try {
+    //   setReqLoading(true);
+    //   const { user } = await Auth.signUp({
+    //     username,
+    //     password,
+    //     attributes: {
+    //       email,
+    //     },
+    //     autoSignIn: {
+    //       enabled: true,
+    //     },
+    //   });
+    //   console.log("AuthPage User", user);
+    //   if (user) {
+    //     router.push(`/confirm-account?username=${username}`);
+    //   }
+    //   console.log("Values", user);
+    // } catch (error: any) {
+    //   toast.error(
+    //     error.name === "UsernameExistsException" &&
+    //       "User already exists, please login"
+    //   );
+    //   toast.error(error.message || "Error signing up, plese try again");
+    //   console.log("error signing up:", error);
+    // }
+    // setReqLoading(false);
   }
 
   return (

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import { Amplify } from "aws-amplify";
 import { observer } from "mobx-react";
 import Loader from "../AtomicComponents/Loader/Loader";
 import PostCard from "./PostCard/PostCard";
@@ -9,9 +8,6 @@ import RightSidebar from "./Sidebar/RightSidebar";
 import CreateNewPost from "./CreateNewPost/CreateNewPost";
 import { PostStore } from "../../stores/postStore";
 import styles from "./Feed.module.scss";
-import awsconfig from "../../../src/aws-exports";
-
-Amplify.configure(awsconfig);
 
 const Feed = () => {
   // Only reload the feed when there are no posts.

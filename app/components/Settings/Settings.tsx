@@ -2,14 +2,10 @@
 
 import React, { useState } from "react";
 import { observer } from "mobx-react";
-import { Amplify } from "aws-amplify";
-import awsmobile from "../../../src/aws-exports";
 import styles from "./Settings.module.scss";
 import { AuthStore } from "@/stores/AuthStore";
 import ProfileSidebar from "../ProfilePage/ProfileSidebar";
 import CButton from "../AtomicComponents/CButton/CButton";
-
-Amplify.configure({ ...awsmobile, ssr: true });
 
 const SettingsPage = () => {
   const [fullname, setFullname] = useState(
