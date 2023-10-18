@@ -61,24 +61,30 @@
 
 .topicTags {
   display: flex;
+  font-size: 12px;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
 
   .topicTag {
-    background-color: #e74c3c; // Background color for topic tags
     color: #ecf0f1; // Text color
     border-radius: 0.25rem;
     padding: 0.25rem 0.5rem;
   }
 }
 
-.actionButtons {
+.actions {
   display: flex;
   align-items: center;
   gap: 10px;
 
-  .actionButton {
+  &__text {
+    @media (max-width: $sm-breakpoint) {
+      display: none;
+    }
+  }
+
+  &__btn {
     display: flex;
     font-family: inherit;
     align-items: center;
@@ -89,16 +95,22 @@
     padding: 10px 1rem;
     gap: 0.25rem;
     color: #ecf0f1; // Text color
+    transition: all 0.2s ease-in-out;
 
-    .icon {
-      width: 1.25rem;
-      height: 1.25rem;
+    &:hover {
+      transform: scale(1.02);
+    }
+    &:active {
+      transform: scale(0.98);
     }
 
-    @media (max-width: $sm-breakpoint) {
-      span {
-        display: none;
-      }
+    &.liked {
+      background-color: #e74c3c;
     }
+  }
+
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }

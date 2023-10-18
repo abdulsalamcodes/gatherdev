@@ -1,16 +1,26 @@
 import { IUser } from "../../../stores/AuthStore";
 import { IPost } from "../../../types/post";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import {
   AiOutlineHeart,
   AiOutlineComment,
   AiOutlineBook,
 } from "react-icons/ai";
-import styles from "./PostCard.module.scss"; // Import styles from your module
+import styles from "./PostCard.module.scss";
 import Image from "next/image";
+import clsx from "clsx";
 
 const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikePost = () => {
+    setIsLiked(!isLiked);
+    // get the post like count
+    // increase the like count by 1
+    // psuedo update of the count on UI.
+    // update the post like count on the database.
+  };
   return (
     <div className={styles.postCard}>
       {/* Author Details */}
@@ -58,18 +68,24 @@ const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
       </div>
 
       {/* Action Buttons */}
-      <div className={styles.actionButtons}>
-        <button className={styles.actionButton}>
-          <AiOutlineHeart className={styles.icon} />
-          <span>Like</span>
+      <div className={styles.actions}>
+        <button
+          className={clsx({
+            [styles.actions__btn]: true,
+            [styles.liked]: isLiked,
+          })}
+          onClick={handleLikePost}
+        >
+          <AiOutlineHeart className={styles.actions__icon} />
+          <span className={styles.actions__text}> 10 Upvotes</span>
         </button>
-        <button className={styles.actionButton}>
-          <AiOutlineComment className={styles.icon} />
-          <span>Comment</span>
+        <button className={styles.actions__btn}>
+          <AiOutlineComment className={styles.actions__icon} />
+          <span className={styles.actions__text}>Comment</span>
         </button>
-        <button className={styles.actionButton}>
-          <AiOutlineBook className={styles.icon} />
-          <span>Bookmark</span>
+        <button className={styles.actions__btn}>
+          <AiOutlineBook className={styles.actions__icon} />
+          <span className={styles.actions__text}>Bookmark</span>
         </button>
       </div>
     </div>

@@ -12,7 +12,7 @@ import styles from "./Auth.module.scss";
 import { AuthStore } from "@/stores/AuthStore";
 import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 
-Amplify.configure({ ...awsconfig, ssr: true });
+Amplify.configure(awsconfig);
 
 type LoginParameters = {
   username: string;

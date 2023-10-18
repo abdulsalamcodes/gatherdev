@@ -12,7 +12,7 @@ import styles from "./Auth.module.scss";
 import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 import { useRouter } from "next/navigation";
 
-Amplify.configure({ ...awsconfig, ssr: true });
+Amplify.configure(awsconfig);
 
 type SignUpParameters = {
   username: string;

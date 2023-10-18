@@ -9,7 +9,7 @@ import { AuthStore } from "@/stores/AuthStore";
 import ProfileSidebar from "../ProfilePage/ProfileSidebar";
 import CButton from "../AtomicComponents/CButton/CButton";
 
-Amplify.configure({ ...awsmobile, ssr: true });
+Amplify.configure(awsmobile);
 
 const SettingsPage = () => {
   const [fullname, setFullname] = useState(
