@@ -5,13 +5,42 @@ import { FormikProvider, useFormik } from "formik";
 import CButton from "../AtomicComponents/CButton/CButton";
 import Link from "next/link";
 import styles from "./Auth.module.scss";
-import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 import { useRouter } from "next/navigation";
+import { AuthStore } from "@/stores/AuthStore";
+import { toast } from "react-toastify";
 
 type SignUpParameters = {
   username: string;
   password: string;
   email: string;
+  fullname: string;
+};
+
+export const InputField = ({
+  id,
+  type = "text",
+  displayName,
+  formik,
+}: {
+  id: keyof SignUpParameters;
+  displayName: string;
+  type: "text" | "password" | "email";
+  formik: any;
+}) => {
+  return (
+    <label htmlFor={id} className={styles.form__input}>
+      <span>{displayName}</span>
+      <input
+        type={type}
+        id={id}
+        {...formik.getFieldProps(id)}
+        value={formik.values[id]}
+      />
+      {formik.touched[id] && formik.errors[id] && (
+        <p className={styles.errorText}>{formik.errors[id]}</p>
+      )}
+    </label>
+  );
 };
 
 // Validation Rules
@@ -26,10 +55,11 @@ const validationSchema = Yup.object().shape({
 });
 
 // Initial Values.
-const formInitialValues: SignUpParameters = {
+const formInitialValues = {
   email: "",
   password: "",
   username: "",
+  fullname: "",
 };
 
 const SignUp = () => {
@@ -41,79 +71,72 @@ const SignUp = () => {
     initialValues: formInitialValues,
     validationSchema,
     onSubmit: (values) => {
-      console.log("Values", values);
       signUp(values);
     },
   });
 
-  // Signup handler.
-  async function signUp({ username, password, email }: SignUpParameters) {
-    // try {
-    //   setReqLoading(true);
-    //   const { user } = await Auth.signUp({
-    //     username,
-    //     password,
-    //     attributes: {
-    //       email,
-    //     },
-    //     autoSignIn: {
-    //       enabled: true,
-    //     },
-    //   });
-    //   console.log("AuthPage User", user);
-    //   if (user) {
-    //     router.push(`/confirm-account?username=${username}`);
-    //   }
-    //   console.log("Values", user);
-    // } catch (error: any) {
-    //   toast.error(
-    //     error.name === "UsernameExistsException" &&
-    //       "User already exists, please login"
-    //   );
-    //   toast.error(error.message || "Error signing up, plese try again");
-    //   console.log("error signing up:", error);
-    // }
-    // setReqLoading(false);
+  async function signUp({
+    username,
+    password,
+    email,
+    fullname,
+  }: SignUpParameters) {
+    try {
+      setReqLoading(true);
+      const resp = await AuthStore.registerUser({
+        username,
+        password,
+        email,
+        fullname,
+      });
+
+      if (resp.success) {
+        toast.success("Account created successfully.");
+        router.push("/home");
+      } else {
+        const errorMessage = resp.message || "Something went wrong.";
+        toast.error(errorMessage);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.message || "Something went wrong. Please try again later.";
+      toast.error(errorMessage);
+    } finally {
+      setReqLoading(false);
+    }
   }
 
   return (
     <FormikProvider value={formik}>
       <main className={styles.container}>
-        <BgWrap />
         <form className={styles.form} onSubmit={formik.handleSubmit}>
           <header className={styles.form__header}>
             <h1>Create An Account On Codesphere</h1>
           </header>
-          <label htmlFor="email" className={styles.form__input}>
-            <span className="text-white mb-3">Email</span>
-            <input type="email" id="email" {...formik.getFieldProps("email")} />
-            {formik.touched.email && formik.errors.email && (
-              <p className={styles.errorText}>{formik.errors.email}</p>
-            )}
-          </label>
-          <label htmlFor="username" className={styles.form__input}>
-            <span className="text-white mb-3">Username</span>
-            <input
-              type="text"
-              id="username"
-              {...formik.getFieldProps("username")}
-            />
-            {formik.touched.username && formik.errors.username && (
-              <p className={styles.errorText}>{formik.errors.username}</p>
-            )}
-          </label>
-
-          <label htmlFor="password" className={styles.form__input}>
-            <span className="text-white mb-3">Password</span>
-            <input
-              type="password"
-              id="password"
-              {...formik.getFieldProps("password")}
-            />
-            {formik.touched.password && formik.errors.password && (
-              <p className={styles.errorText}>{formik.errors.password}</p>
-            )}
-          </label>
+          <InputField
+            id="fullname"
+            type="text"
+            displayName="Full Name"
+            formik={formik}
+          />
+          <InputField
+            id="username"
+            type="text"
+            displayName="Username"
+            formik={formik}
+          />
+          <InputField
+            id="email"
+            type="email"
+            displayName="Email"
+            formik={formik}
+          />
+          <InputField
+            id="password"
+            type="password"
+            displayName="Password"
+            formik={formik}
+          />
           <CButton label={"Sign Up"} type={"submit"} isLoading={reqLoading} />
 
           <Link href={"/login"} className={styles.createAccount} type="button">

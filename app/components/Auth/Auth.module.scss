@@ -4,8 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  // min-height: 100vh;
+  // margin-top: 20px;
   min-height: 100vh;
-  margin-top: 20px;
+  height: 100%;
+  background: url("../../../public/landing-bg.png");
 }
 
 // ------- LOGIN AND SIGNUP PAGES STYLINGS ------ //
@@ -43,6 +46,7 @@
       background-color: transparent;
       border-radius: 100px;
       outline: none;
+      font-family: inherit;
       padding: 15px;
       color: $gray-200;
       border: 1px solid $gray-400;

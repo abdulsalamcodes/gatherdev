@@ -137,9 +137,9 @@ input:-moz-placeholder {
 /* Override the default cursor style for button elements */
 
 button,
-input,
-select,
-textarea {
+input[type="button"],
+select[type="button"],
+textarea[type="button"] {
   cursor: pointer;
 }
 

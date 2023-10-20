@@ -21,8 +21,8 @@ const LeftSidebar = () => {
             className={styles.image}
           />
           <div>
-            <p className={styles.name}>{AuthStore.currentUser?.username}</p>
-            <p className={styles.title}>{AuthStore.currentUser?.title}</p>
+            <p className={styles.name}>{AuthStore.currentUser?.fullname}</p>
+            <p className={styles.title}>@{AuthStore.currentUser?.username}</p>
           </div>
         </div>
 

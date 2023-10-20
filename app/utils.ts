@@ -1,58 +1,34 @@
 "use client";
 
-import { AuthStore, IUser } from "../app/stores/AuthStore";
-
-export async function createUserInAppSync(user: IUser) {
-  // try {
-  //   // @ts-ignore
-  //   const { data } = await API.graphql({
-  //     query: mutations.createUser,
-  //     authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-  //     variables: {
-  //       input: {
-  //         username: user.username,
-  //         email: user.email,
-  //         fullname: user.username,
-  //         title: "Software Engineer",
-  //         id: user.id,
-  //       },
-  //     },
-  //   });
-  //   AuthStore.loadCurrentUser(data.createUser.id);
-  // } catch (error) {
-  //   console.log("Error creating user in AppSync:", error);
-  // }
-}
-
-export async function fetchCurrentUser(userId: string) {
-  // try {
-  //   // @ts-ignore
-  //   const { data } = await API.graphql({
-  //     query: queries.getUser,
-  //     authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-  //     variables: {
-  //       id: userId,
-  //     },
-  //   });
-  //   AuthStore.loadCurrentUser(data.getUser.id);
-  // } catch (error) {
-  //   console.log("Error fetching user in AppSync:", error);
-  // }
-}
-
-export function getUserStoredId() {
-  const currentUser = localStorage.getItem("currentUserId");
-  if (currentUser) {
-    return JSON.parse(currentUser);
+export const errorHandler = (error: any) => {
+  if (error.response) {
+    if (error.response.status === 400) {
+      console.log("Bad Request", JSON.stringify(error.response.data));
+    } else if (error.response.status === 500) {
+      console.log("Server Error", JSON.stringify(error.response.data));
+    } else {
+      console.log("Other Error", error.message);
+    }
+    console.log("errror", error.response.data);
+    return error.response.data;
+  } else {
+    console.log("Network Error", error.message);
+    throw error;
   }
-}
+};
 
-export function clearCurrentUserFromLocalStorage() {
-  localStorage.removeItem("currentUserId");
-}
-
+export const apiConfig = (method: string, endpoint: string, data: any) => {
+  return {
+    method: method,
+    maxBodyLength: Infinity,
+    url: `https://gatherdev.onrender.com/${endpoint}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+};
 // return localStorage.
-
 export function returnLocalStorage() {
   if (typeof window !== "undefined") {
     return localStorage;

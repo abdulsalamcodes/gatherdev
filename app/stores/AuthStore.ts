@@ -1,8 +1,8 @@
 import { IPost } from "../types/post";
-import { clearCurrentUserFromLocalStorage, returnLocalStorage } from "@/utils";
+import { apiConfig, errorHandler, returnLocalStorage } from "@/utils";
+import axios from "axios";
 import { makeObservable, observable, action } from "mobx";
 import { clearPersistedStore, makePersistable } from "mobx-persist-store";
-// import localforage from "localforage";
 
 export interface IUser {
   id: string;
@@ -22,22 +22,26 @@ export interface IUser {
 
 class AuthStoreClass {
   public currentUser: IUser | null;
+  public token: string;
   public allUsers: IUser[] | [];
-  public profileUser: IUser | null;
   public updatingUser: boolean;
 
   constructor() {
     this.currentUser = null;
-    this.profileUser = null;
+    this.token = "";
     this.allUsers = [];
     this.updatingUser = false;
 
     makeObservable(this, {
       currentUser: observable,
-      profileUser: observable,
+      token: observable,
       allUsers: observable,
       updatingUser: observable,
-      loadCurrentUser: action,
+
+      loginUser: action,
+      registerUser: action,
+      continueWithGoogle: action,
+
       loadAllUsers: action,
       logout: action,
       isLoggedIn: action,
@@ -50,7 +54,34 @@ class AuthStoreClass {
     });
   }
 
-  async loadCurrentUser(userId?: string) {}
+  async registerUser(data: any): Promise<any> {
+    try {
+      const resp = await axios.request(
+        apiConfig("post", "oauth2/register", data)
+      );
+      console.log("REGISTER USER SUCCESS", resp.data.user);
+      this.currentUser = resp.data.user;
+      this.token = resp.data.token;
+      return resp.data;
+    } catch (error: any) {
+      return errorHandler(error);
+    }
+  }
+
+  // LOG IN USER.
+  async loginUser(data: any) {
+    try {
+      const resp = await axios.request(apiConfig("post", "oauth2/login", data));
+      console.log("LOGIN USER SUCCESS", resp.data.data.user);
+      this.currentUser = resp.data.data.user;
+      this.token = resp.data.data.token;
+      return resp.data;
+    } catch (error: any) {
+      return errorHandler(error);
+    }
+  }
+
+  async continueWithGoogle() {}
 
   async loadAllUsers() {}
 
@@ -73,7 +104,6 @@ class AuthStoreClass {
   logout(): void {
     this.currentUser = null;
     clearPersistedStore(this);
-    clearCurrentUserFromLocalStorage();
   }
 
   isLoggedIn(): boolean {

@@ -5,7 +5,6 @@ import VerificationInput from "react-verification-input";
 import CButton from "../AtomicComponents/CButton/CButton";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
-import { createUserInAppSync } from "@/utils";
 import { toast } from "react-toastify";
 import styles from "./Auth.module.scss";
 import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
@@ -19,61 +18,21 @@ const ConfirmCodeForm: React.FC<ConfirmCodeFormProp> = ({ username }) => {
   const router = useRouter();
 
   // This function logs user in immediately after confirmation.
-  function listenToAutoSignInEvent() {
-    // Hub.listen("auth", ({ payload }) => {
-    //   const { event } = payload;
-    //   if (event === "autoSignIn") {
-    //     const user = payload.data;
-    //     console.log("User Login successful::", user);
-    //     // assign user
-    //     if (user) {
-    //       setPosting(false);
-    //       createUserInAppSync({
-    //         username: user.username,
-    //         email: user.attributes.email,
-    //         id: user.attributes.sub,
-    //       });
-    //       router.push("/home");
-    //     }
-    //   } else if (event === "autoSignIn_failure") {
-    //     router.push("/login");
-    //   }
-    // });
-  }
+  function listenToAutoSignInEvent() {}
 
   type ConfirmSignUpParameters = {
     username: string;
     code: string;
   };
 
-  async function confirmSignUp({ username, code }: ConfirmSignUpParameters) {
-    // try {
-    //   setPosting(true);
-    //   await Auth.confirmSignUp(username, code);
-    //   listenToAutoSignInEvent();
-    //   toast.success("Sign up successful, please login");
-    // } catch (error: any) {
-    //   toast.error(error || "Something went wrong");
-    //   setPosting(false);
-    //   console.log("error confirming sign up", error);
-    // }
-  }
+  async function confirmSignUp({ username, code }: ConfirmSignUpParameters) {}
 
   type ResendConfCodeParameters = {
     username: string;
   };
   async function resendConfirmationCode({
     username,
-  }: ResendConfCodeParameters) {
-    // try {
-    //   await Auth.resendSignUp(username);
-    //   console.log("code resent successfully");
-    //   toast.success("Code resent successfully");
-    // } catch (err: any) {
-    //   console.log("error resending code: ", err);
-    //   toast.error(err.message || "Error resending code");
-    // }
-  }
+  }: ResendConfCodeParameters) {}
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
