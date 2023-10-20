@@ -17,7 +17,7 @@ export const errorHandler = (error: any) => {
   }
 };
 
-export const apiConfig = (method: string, endpoint: string, data: any) => {
+export const apiConfig = (method: string, endpoint: string, data?: any) => {
   return {
     method: method,
     maxBodyLength: Infinity,

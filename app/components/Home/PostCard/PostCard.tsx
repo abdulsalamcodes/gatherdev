@@ -30,9 +30,9 @@ const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
             href={`/profile/${post.author?.username}`}
             className={styles.authorUsername}
           >
-            {user?.username}
+            {user?.fullname}
           </Link>
-          <p className={styles.authorTitle}>{user?.title}</p>
+          <p className={styles.authorTitle}>{user?.username}</p>
         </div>
       </div>
 
@@ -46,22 +46,17 @@ const PostCard = ({ post, user }: { post: IPost; user?: IUser }) => {
         </div>
       </div>
 
-      <div className={styles.topicTags}>
-        {/* Topic Tag */}
-        {post?.language && (
-          <div className={styles.topicTag}>#{post?.language}</div>
-        )}
-        {/* Topic Tag */}
+      {/* <div className={styles.topicTags}>
         {post?.topicTag && (
           <div className={styles.topicTag}>{post?.topicTag}</div>
         )}
-      </div>
+      </div> */}
 
       {/* Action Buttons */}
       <div className={styles.actionButtons}>
         <button className={styles.actionButton}>
           <AiOutlineHeart className={styles.icon} />
-          <span>Like</span>
+          <span>{post.likes} Like</span>
         </button>
         <button className={styles.actionButton}>
           <AiOutlineComment className={styles.icon} />

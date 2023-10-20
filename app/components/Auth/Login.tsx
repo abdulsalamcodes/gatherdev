@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./Auth.module.scss";
-import BgWrap from "../AtomicComponents/BgWrap/BgWrap";
 import { AuthStore } from "@/stores/AuthStore";
 import { InputField } from "./SignUp";
 
